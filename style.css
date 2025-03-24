@@ -112,6 +112,11 @@ li {
   margin-bottom: 9px;
 }
 
+li::marker {
+  color: var(--hero-color);
+  font-weight: 700;
+}
+
 /* Text effects */
 .code {
   color: var(--hero-color);
