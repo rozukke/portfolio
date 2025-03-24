@@ -1,0 +1,174 @@
+:root {
+  --hero-color: #beb;
+  --bg-color: #201830;
+  --bg-color-transparent: #201830DD;
+  font-family: "Domine", serif;
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-style: normal;
+  color: #ddd;
+}
+
+body {
+  background-image:
+    linear-gradient(var(--bg-color-transparent), var(--bg-color-transparent)),
+    url("flying_wall.jpg");
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur(3px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+body:before {
+  content: "";
+  pointer-events: none;
+
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 800px;
+  opacity: 0.15;
+
+  animation: grain 5s steps(5) infinite;
+
+  top: -35%;
+  left: -35%;
+  position: absolute;
+  width: 200%;
+  height: 200%;
+}
+
+@keyframes grain {
+
+  0%,
+  100% {
+    transform: translate(0, 0)
+  }
+
+  20% {
+    transform: translate(-5%, -10%)
+  }
+
+  40% {
+    transform: translate(-15%, -15%)
+  }
+
+  60% {
+    transform: translate(-10%, -25%)
+  }
+
+  80% {
+    transform: translate(-5%, -10%)
+  }
+}
+
+nav {
+  width: 100%;
+}
+
+nav>button {
+  color: #fff;
+  background-color: transparent;
+  opacity: 30%;
+
+  font-family: "Space Mono", monospace;
+  font-weight: 400;
+  font-size: 2rem;
+
+  outline: none;
+  border: none;
+}
+
+nav>button:hover {
+  color: var(--hero-color);
+  opacity: 100%;
+}
+
+article {
+  width: 600px;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--hero-color);
+  font-family: "Space Mono", monospace;
+  font-weight: 700;
+  margin-top: 25px;
+  margin-bottom: 5px;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+p {
+  margin-bottom: 15px;
+  line-height: 2rem;
+}
+
+ul {
+  margin-bottom: 15px;
+}
+
+li {
+  margin-bottom: 9px;
+}
+
+/* Text effects */
+.code {
+  color: var(--hero-color);
+  border-radius: 3px;
+  padding: 2px 5px;
+  margin: 0px 3px;
+  outline: 1px solid var(--hero-color);
+  font-family: "Space Mono", monospace;
+}
+
+strong {
+  color: var(--hero-color);
+}
+
+/* Footer content */
+
+#chevron {
+  height: 100%;
+  width: 1rem;
+  align-self: center;
+}
+
+#term {
+  padding: 10px 20px;
+  margin: 10px;
+  width: 50%;
+
+  background-color: var(--bg-color);
+  border: none;
+  outline: none;
+
+  color: white;
+  font-family: "Space Mono", monospace;
+
+  caret: var(--hero-color) block;
+}
+
+#term:focus {
+  border: none;
+  outline: none;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: auto;
+
+  background-color: var(--bg-color);
+}
