@@ -22,6 +22,7 @@ body {
   align-items: center;
 
   height: 100vh;
+  max-height: 100vh;
   width: 100vw;
   overflow: hidden;
 }
@@ -93,6 +94,8 @@ nav>button:hover {
 
 article {
   width: 600px;
+  max-width: 90vw;
+  overflow-y: auto;
 }
 
 h1,
