@@ -43,16 +43,18 @@ body {
 
 nav {
   width: 100%;
-}
+  color: var(--hero-color);
+  display: inline-flex;
 
-nav>button {
-  color: #fff;
-  background-color: transparent;
-  opacity: 30%;
-
+  font-size: 2rem;
   font-family: "Space Mono", monospace;
   font-weight: 400;
-  font-size: 2rem;
+}
+
+nav button {
+  background-color: transparent;
+  opacity: 30%;
+  color: #fff;
 
   outline: none;
   border: none;
