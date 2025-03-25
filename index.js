@@ -1,5 +1,6 @@
 const term = document.getElementById("term");
 const caret = document.getElementById("caret");
+const termBacking = document.getElementById("term-backing");
 
 let bufferBefore = "";
 let bufferAfter = "";
@@ -10,7 +11,7 @@ function updateTerminal() {
   caret.innerHTML = bufferAfter[0] ?? " ";
 }
 
-term.addEventListener("keydown", (e) => {
+termBacking.addEventListener("keydown", (e) => {
   if (e.key.length === 1) {
     bufferBefore += e.key;
   } else if (e.key === "Backspace") {
@@ -39,7 +40,7 @@ function doCommand(command) {
   }
 }
 
-term.addEventListener("click", () => term.focus());
+term.addEventListener("click", () => termBacking.focus());
 
 updateTerminal();
-term.focus();
+termBacking.focus();
