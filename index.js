@@ -6,8 +6,6 @@ let bufferAfter = "";
 
 function updateTerminal() {
   term.firstChild.innerHTML = bufferBefore;
-
-  // Shitty caret update logic;
   term.children[2].innerHTML = bufferAfter.slice(1, bufferAfter.length) ?? "";
   caret.innerHTML = bufferAfter[0] ?? " ";
 }
@@ -23,10 +21,23 @@ term.addEventListener("keydown", (e) => {
   } else if (e.key === "ArrowRight") {
     bufferBefore = bufferBefore + (bufferAfter[0] ?? "");
     bufferAfter = bufferAfter.slice(1, bufferAfter.length) ?? "";
+  } else if (e.key === "Enter") {
+    const command = bufferBefore + bufferAfter;
+    doCommand(command);
+    bufferBefore = "";
+    bufferAfter = "";
   }
   updateTerminal();
   e.preventDefault();
 });
+
+function doCommand(command) {
+  switch (command) {
+    default:
+      alert("Not implemented!");
+      break;
+  }
+}
 
 term.addEventListener("click", () => term.focus());
 
