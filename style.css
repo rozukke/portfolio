@@ -174,15 +174,21 @@ strong {
   }
 }
 
-#term:focus {
+#term-backing:focus+#term {
   outline: none;
   border: none;
   background: none;
 }
 
-#term:focus #caret {
+#term-backing:focus+#term #caret {
   background-color: white;
   color: var(--bg-color);
+}
+
+#term-backing {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
 }
 
 footer {
