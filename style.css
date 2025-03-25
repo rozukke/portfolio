@@ -1,5 +1,6 @@
 :root {
   --hero-color: #8e8;
+  --contrast-color: #ff3077;
   --bg-color: #201830;
   --bg-color-transparent: #201830EE;
   font-family: "Chivo", sans-serif;
@@ -18,6 +19,7 @@ html {
 }
 
 body {
+  background-color: var(--bg-color);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,7 +75,7 @@ nav>button:hover {
   display: block;
   margin-top: -1em;
   margin-bottom: 1em;
-  color: #dfda;
+  color: #ff3077aa;
   font-size: 0.5em;
 
 }
@@ -119,11 +121,11 @@ li::marker {
 
 /* Text effects */
 .code {
-  color: var(--hero-color);
+  color: var(--contrast-color);
   border-radius: 3px;
   padding: 2px 5px;
   margin: 0px 3px;
-  outline: 1px solid var(--hero-color);
+  outline: 1px solid var(--contrast-color);
   font-family: "Space Mono", monospace;
 }
 
@@ -140,27 +142,47 @@ strong {
 }
 
 #term {
-  padding: 10px 20px;
+  height: 2rem;
+
+  /*fixes spaces not showing*/
+  white-space: pre;
+
+  padding: 10px;
   margin: 10px;
   min-width: 50%;
+  display: flex;
+  align-items: center;
 
-  background-color: var(--bg-color);
-  border: none;
-  outline: none;
+  border-radius: 5px;
 
-  color: white;
+  background-color: transparent;
+
   font-family: "Space Mono", monospace;
+  color: white;
 
-  caret: var(--hero-color) block;
+  /*shimmer effect*/
+  background-color: var(--bg-color);
+  background: linear-gradient(45deg, #ccc0 30%, #bbe5 50%, #ccc0 70%);
+  background-size: 300%;
+  background-position-x: -500%;
+  animation: shimmer 7s infinite linear;
+}
+
+@keyframes shimmer {
+  to {
+    background-position-x: 300%;
+  }
 }
 
 #term:focus {
-  border: none;
   outline: none;
+  border: none;
+  background: none;
 }
 
-#term:focus::placeholder {
-  color: transparent;
+#term:focus #caret {
+  background-color: white;
+  color: var(--bg-color);
 }
 
 footer {
@@ -168,6 +190,8 @@ footer {
   justify-content: center;
   width: 100%;
   margin-top: auto;
+
+  position: relative;
 
   background-color: var(--bg-color);
 }
