@@ -31,7 +31,7 @@ body {
 .bg {
   background-image:
     linear-gradient(var(--bg-color-transparent), var(--bg-color-transparent)),
-    url("flying_wall.jpg");
+    url("resources/flying_wall.jpg");
   background-size: cover;
   background-position: center;
   backdrop-filter: blur(3px);
