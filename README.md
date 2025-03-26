@@ -1,5 +1,7 @@
 # rozukke's Portfolio
 
+WIP. Deployed on Cloudflare.
+
 Ideas:
 
 - "real dev" mode
