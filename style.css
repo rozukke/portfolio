@@ -77,7 +77,6 @@ nav>button:hover {
   margin-bottom: 1em;
   color: #ff3077aa;
   font-size: 0.5em;
-
 }
 
 article {
@@ -202,8 +201,48 @@ footer {
   background-color: var(--bg-color);
 }
 
+.mobile-popup {
+  position: fixed;
+  top: 1rem;
+
+  width: 90%;
+  padding: 10px;
+  border-radius: 10px;
+
+  visibility: none;
+  opacity: 0;
+  z-index: 100;
+
+  background-color: crimson;
+  border: 2px darkred solid;
+  color: white;
+  font-family: "Space Mono", monospace;
+}
+
 @media screen and (max-width: 600px) {
   nav {
     display: inline;
+  }
+
+  .mobile-popup {
+    visibility: visible;
+    opacity: 1;
+    animation: fadeOut 5s ease-in-out forwards;
+  }
+
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
   }
 }
