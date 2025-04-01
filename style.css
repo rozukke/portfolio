@@ -3,11 +3,12 @@
   --contrast-color: #ff3077;
   --bg-color: #201830;
   --bg-color-transparent: #201830EE;
+  --text-color: #ddd;
   font-family: "Chivo", sans-serif;
   font-weight: 400;
   font-optical-sizing: auto;
   font-style: normal;
-  color: #ddd;
+  color: var(--text-color);
 }
 
 html {
@@ -130,6 +131,50 @@ li::marker {
 
 strong {
   color: var(--hero-color);
+}
+
+a {
+  color: var(--hero-color);
+  /* before needs pos */
+  position: relative;
+  font-weight: bold;
+  text-decoration: underline wavy transparent;
+  text-decoration-skip-ink: none;
+  transition: text-decoration-color 0.2s ease-in-out;
+}
+
+a:hover {
+  text-decoration-color: var(--hero-color);
+}
+
+a::before {
+  content: attr(href);
+  position: absolute;
+  top: -2em;
+
+  display: inline-block;
+  visibility: hidden;
+  opacity: 0%;
+
+  width: fit-content;
+  height: fit-content;
+  white-space: nowrap;
+
+  padding: 0px 1em;
+  border-radius: 0.5em;
+
+  background-color: var(--bg-color-transparent);
+  color: white;
+  font-family: "Space Mono", monospace;
+  font-size: 0.7em;
+
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+a:hover::before {
+  visibility: visible;
+  opacity: 100%;
+  transform: translateY(-1em);
 }
 
 /* Footer content */
