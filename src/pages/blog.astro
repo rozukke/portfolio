@@ -1,70 +1,24 @@
 ---
-import "../../styles/reset.css";
-import "../../styles/global.css";
-import "../../styles/grain.css";
+import Base from "@layouts/Base.astro"
+import Post from "@components/Post.astro";
+const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0"
-		/>
-		<title>rozukke</title>
-
-		<meta
-			name="description"
-			content="View my projects, experience and other fun tidbits."
-		/>
-		<meta
-			name="keywords"
-			content="rozukke artemis rosman dev programming portfolio coding github developer website"
-		/>
-		<meta name="author" content="rozukke" />
-
-		<meta property="og:title" content="rozukke" />
-		<meta
-			name="og:description"
-			content="View my projects, experience and other fun tidbits."
-		/>
-		<meta name="og:site_name" content="rozukke" />
-		<meta name="og:locale" content="en_AU" />
-		<meta name="og:type" content="website" />
-		<meta name="og:url" content="https://rozukke.dev" />
-		<!--<meta name="og:image" content="http://rozukke.dev/favicon.png">-->
-
-		<!--<link rel="icon" href="favicon.png" type="image/png">-->
-		<!--<link rel="shortcut icon" type="favicon.png" href="image/x-icon">-->
-
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link
-			rel="preconnect"
-			href="https://fonts.gstatic.com"
-			crossorigin
-		/>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Chivo:ital,wght@0,100..900;1,100..900&display=swap"
-			rel="stylesheet"
-		/>
-	</head>
-	<body>
-		<div class="grain bg"></div>
-		<div class="body-container">
-			<nav>
-				<a href="/experience/">experience</a>::
-				<a href="/projects/">projects</a>::
-				<a href="/blog/">blog</a>
-			</nav>
-			<article>
-				<h2>Construction Zone</h2>
-			</article>
-		</div>
-		<footer>
-			<span class="copyright"
-				>Copyright © {new Date().getFullYear()} Artemis
-				Rosman</span
-			>
-		</footer>
-	</body>
-</html>
+<Base
+	pageTitle="blog"
+	description="rozukke's development and general blog"
+	showPicture={true}
+	showStatic={true}
+	animateStatic={false}
+>
+	<article>
+		<h2>Blog (Under Construction!)</h2>
+		<p>This page is undergoing heavy work.</p>
+		{allPosts.map((post:any) => <Post
+			url={post.url}
+			title={post.frontmatter.title}
+			date={post.frontmatter.date}
+			shortDesc={post.frontmatter.desc}
+		/>)}
+	</article>
+</Base>

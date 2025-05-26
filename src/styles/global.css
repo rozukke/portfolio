@@ -38,49 +38,6 @@ body {
 	width: 100%;
 }
 
-.bg {
-	background-image:
-		linear-gradient(var(--bg-color-transparent), var(--bg-color-transparent)),
-		url("../public/flying_wall.jpg");
-	background-size: cover;
-	background-position: center;
-	backdrop-filter: blur(3px);
-
-	position: absolute;
-	height: 100%;
-	max-height: 100%;
-	width: 100%;
-	max-width: 100%;
-	overflow: hidden;
-	z-index: -1;
-}
-
-nav {
-	width: 100%;
-	color: var(--hero-color);
-	display: inline-flex;
-	padding-left: 0.5em;
-
-	font-size: 2rem;
-	font-family: "Space Mono", monospace;
-	font-weight: 400;
-}
-
-nav>a {
-	background-color: transparent;
-	color: var(--text-color);
-	opacity: 40%;
-
-	outline: none;
-	border: none;
-	text-decoration: none;
-}
-
-nav>a:hover {
-	color: var(--hero-color);
-	opacity: 100%;
-}
-
 #title-name::after {
 	content: "artemis rosman";
 	display: block;
@@ -142,7 +99,7 @@ strong {
 	color: var(--hero-color);
 }
 
-article a {
+article p>a {
 	color: var(--hero-color);
 	/* before needs pos */
 	position: relative;
@@ -152,11 +109,11 @@ article a {
 	transition: text-decoration-color 0.2s ease-in-out;
 }
 
-a:hover {
+article p>a:hover {
 	text-decoration-color: var(--hero-color);
 }
 
-a::before {
+article p>a::before {
 	content: attr(href);
 	position: absolute;
 	top: -2em;
@@ -181,7 +138,7 @@ a::before {
 	transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
-a:hover::before {
+article p>a:hover::before {
 	visibility: visible;
 	opacity: 100%;
 	transform: translateY(-1em);
