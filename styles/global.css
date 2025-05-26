@@ -66,16 +66,17 @@ nav {
 	font-weight: 400;
 }
 
-nav button {
+nav>a {
 	background-color: transparent;
 	color: var(--text-color);
 	opacity: 40%;
 
 	outline: none;
 	border: none;
+	text-decoration: none;
 }
 
-nav>button:hover {
+nav>a:hover {
 	color: var(--hero-color);
 	opacity: 100%;
 }
@@ -141,7 +142,7 @@ strong {
 	color: var(--hero-color);
 }
 
-a {
+article a {
 	color: var(--hero-color);
 	/* before needs pos */
 	position: relative;
