@@ -56,15 +56,13 @@ const {pageTitle, description, showPicture, showStatic, animateStatic} = Astro.p
 				showStatic={showStatic}
 				animateStatic={animateStatic}
 		/>
-		<div class="body-container">
-			<nav>
-				<a href="/">home</a>::
-				<a href="/experience/">experience</a>::
-				<a href="/projects/">projects</a>::
-				<a href="/blog/">blog</a>
-			</nav>
-			<slot/>
-		</div>
+		<nav>
+			<a href="/">home</a>::
+			<a href="/experience/">experience</a>::
+			<a href="/projects/">projects</a>::
+			<a href="/blog/">blog</a>
+		</nav>
+		<slot/>
 		<footer>
 			<span class="copyright">Copyright © {new Date().getFullYear()} Artemis Rosman</span>
 		</footer>
