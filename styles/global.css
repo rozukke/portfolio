@@ -1,0 +1,222 @@
+:root {
+	--hero-color: #8e8;
+	--contrast-color: #ff3077;
+	--bg-color: #201830;
+	--bg-color-transparent: #201830EE;
+	--text-color: #ddd;
+	--text-color: #ddd;
+	font-family: "Chivo", sans-serif;
+	font-weight: 400;
+	font-optical-sizing: auto;
+	font-style: normal;
+	color: var(--text-color);
+}
+
+html {
+	overflow: hidden;
+	width: 100%;
+	max-width: 100%;
+	height: 100%;
+	max-height: 100%;
+}
+
+body {
+	background-color: var(--bg-color);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	width: 100%;
+	height: 100%;
+}
+
+.body-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow-y: auto;
+	width: 100%;
+}
+
+.bg {
+	background-image:
+		linear-gradient(var(--bg-color-transparent), var(--bg-color-transparent)),
+		url("../public/flying_wall.jpg");
+	background-size: cover;
+	background-position: center;
+	backdrop-filter: blur(3px);
+
+	position: absolute;
+	height: 100%;
+	max-height: 100%;
+	width: 100%;
+	max-width: 100%;
+	overflow: hidden;
+	z-index: -1;
+}
+
+nav {
+	width: 100%;
+	color: var(--hero-color);
+	display: inline-flex;
+	padding-left: 0.5em;
+
+	font-size: 2rem;
+	font-family: "Space Mono", monospace;
+	font-weight: 400;
+}
+
+nav button {
+	background-color: transparent;
+	color: var(--text-color);
+	opacity: 40%;
+
+	outline: none;
+	border: none;
+}
+
+nav>button:hover {
+	color: var(--hero-color);
+	opacity: 100%;
+}
+
+#title-name::after {
+	content: "artemis rosman";
+	display: block;
+	margin-top: -1em;
+	margin-bottom: 1em;
+	color: var(--contrast-color);
+	font-size: 0.5em;
+}
+
+article {
+	width: 800px;
+	max-width: 90%;
+}
+
+h1,
+h2,
+h3 {
+	color: var(--hero-color);
+	font-family: "Space Mono", monospace;
+	font-weight: 700;
+	margin-top: 25px;
+	margin-bottom: 5px;
+}
+
+h1 {
+	font-size: 3rem;
+}
+
+p {
+	margin-bottom: 15px;
+	line-height: 2rem;
+}
+
+ul {
+	margin-bottom: 15px;
+	list-style-type: ":: ";
+}
+
+li {
+	margin-bottom: 9px;
+}
+
+li::marker {
+	color: var(--hero-color);
+	font-weight: 700;
+}
+
+/* Text effects */
+.code {
+	color: var(--contrast-color);
+	border-radius: 3px;
+	padding: 2px 5px;
+	margin: 0px 3px;
+	outline: 1px solid var(--contrast-color);
+	font-family: "Space Mono", monospace;
+}
+
+strong {
+	color: var(--hero-color);
+}
+
+a {
+	color: var(--hero-color);
+	/* before needs pos */
+	position: relative;
+	font-weight: bold;
+	text-decoration: underline wavy transparent;
+	text-decoration-skip-ink: none;
+	transition: text-decoration-color 0.2s ease-in-out;
+}
+
+a:hover {
+	text-decoration-color: var(--hero-color);
+}
+
+a::before {
+	content: attr(href);
+	position: absolute;
+	top: -2em;
+
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0%;
+	pointer-events: none;
+
+	width: fit-content;
+	height: fit-content;
+	white-space: nowrap;
+
+	padding: 0px 1em;
+	border-radius: 0.5em;
+
+	background-color: var(--bg-color-transparent);
+	color: white;
+	font-family: "Space Mono", monospace;
+	font-size: 0.7em;
+
+	transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+a:hover::before {
+	visibility: visible;
+	opacity: 100%;
+	transform: translateY(-1em);
+}
+
+footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin-top: auto;
+
+	position: relative;
+}
+
+.copyright {
+	color: #888888;
+}
+
+@media screen and (max-width: 600px) {
+	nav {
+		display: inline;
+	}
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+
+	80% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+		visibility: hidden;
+	}
+}
