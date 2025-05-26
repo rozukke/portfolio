@@ -1,0 +1,37 @@
+---
+const {url, title, date, shortDesc} = Astro.props;
+---
+
+<a href={url}>
+  <div class="blog-post">
+    <h3>{title}</h3>
+    <p>{shortDesc}</p>
+    <span class="date">{date}</span>
+  </div>
+</a>
+
+<style>
+.blog-post {
+  padding: 10px;
+  border-radius: 10px;
+
+  background-color: var(--bg-color-transparent);
+  color: white;
+}
+
+.blog-post h3 {
+  margin-top: 0px;
+}
+
+.blog-post:hover {
+  border: 1px solid white;
+}
+
+.date {
+  color: gray;
+}
+
+a {
+  text-decoration: none;
+}
+</style>
