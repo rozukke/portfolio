@@ -1,18 +1,26 @@
 ---
 const {url, title, date, shortDesc} = Astro.props;
+const dateFormatter = new Intl.DateTimeFormat("en-AU", {
+  dateStyle: "medium",
+});
 ---
 
 <a href={url}>
   <div class="blog-post">
-    <h3>{title}</h3>
-    <p>{shortDesc}</p>
-    <span class="date">{date}</span>
+    <div>
+      <h3>{title}</h3>
+      <p>{shortDesc}</p>
+      <span class="date">{dateFormatter.format(new Date(date))}</span>
+    </div>
+    <div>
+
+    </div>
   </div>
 </a>
 
 <style>
 .blog-post {
-  padding: 10px;
+  padding: 1em 1.5em;
   border-radius: 10px;
   margin-top: 20px;
 
@@ -30,9 +38,14 @@ const {url, title, date, shortDesc} = Astro.props;
 
 .date {
   color: gray;
+  font-family: "Space Mono", monospace;
 }
 
 a {
   text-decoration: none;
+}
+
+p {
+  margin-bottom: 2px;
 }
 </style>

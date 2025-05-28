@@ -29,15 +29,6 @@ body {
 	height: 100%;
 }
 
-#title-name::after {
-	content: "artemis rosman";
-	display: block;
-	margin-top: -1em;
-	margin-bottom: 1em;
-	color: var(--contrast-color);
-	font-size: 0.5em;
-}
-
 article {
 	width: 800px;
 	max-width: 90%;
