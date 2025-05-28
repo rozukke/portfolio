@@ -1,0 +1,42 @@
+---
+import "../styles/reset.css";
+import "../styles/global.css";
+const {title, description} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/favicon-96x96.svg" type="image/png" sizes="96x96" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="shortcut icon" type="favicon.ico"/>
+<meta name="generator" content={Astro.generator} />
+
+<link rel="canonical" href={canonicalURL} />
+
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta name="author" content="rozukke" />
+<meta name="keywords"
+  content="rozukke artemis rosman dev programming portfolio coding github developer website blog"
+/>
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:locale" content="en_AU" />
+<meta property="og:image" content="http://rozukke.dev/flying_wall.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin
+/>
+<link
+href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Chivo:ital,wght@0,100..900;1,100..900&display=swap"
+rel="stylesheet"
+/>
