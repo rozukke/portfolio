@@ -12,6 +12,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="shortcut icon" type="favicon.ico"/>
 <meta name="generator" content={Astro.generator} />
+<link rel="sitemap" href="/sitemap-index.xml" />
 
 <link rel="canonical" href={canonicalURL} />
 
@@ -29,14 +30,3 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <meta property="og:description" content={description} />
 <meta property="og:locale" content="en_AU" />
 <meta property="og:image" content="http://rozukke.dev/flying_wall.jpg">
-
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link
-rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin
-/>
-<link
-href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Chivo:ital,wght@0,100..900;1,100..900&display=swap"
-rel="stylesheet"
-/>

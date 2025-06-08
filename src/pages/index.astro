@@ -1,66 +1,81 @@
 ---
+import { type CollectionEntry, getCollection } from "astro:content";
 import Base from "@layouts/Base.astro";
 import Post from "@components/Post.astro";
-import { SOCIAL } from "@const";
+import Link from "@components/Link.astro";
+import { SITE, SOCIAL } from "@const";
 
-const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
+const blogPosts = (await getCollection("blog"))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 ---
 
 <Base
-	pageTitle="rozukke"
-	description="rozukke's dev website."
-	showPicture={true}
-	showStatic={true}
-	animateStatic={true}
+  pageTitle="rozukke"
+  description="rozukke's dev website."
 >
-	<article>
-		<h1 id="title-name">rozukke::</h1>
-		<p>
-			<em>THIS WEBSITE IS A WORK IN PROGRESS!</em>
-		</p>
-		<p>
-			I'm Artemis, a software engineer based
-			in <strong>Melbourne, Australia</strong>.
-		</p>
-		<p>
-			I'm currently working at <a href="https://shield.ai/"></a>
-			as a developer of computer vision software for  in <strong>C++</strong>.
-			At the same time, I am a teacher of Computer Science at
-			<a href="https://www.rmit.edu.au/">RMIT University</a>.
-		</p>
-		<p>
-			I specialise in code architecture and
-			development using unmanaged languages.
-		</p>
-		<h2>Socials</h2>
-		<p>
-			Find me below and shoot me a message if you're interesting in something I'm doing.
-		</p>
-		{SOCIAL.map(INFO => (
-		<>
-			<a href={INFO.HREF}>{INFO.NAME}</a>
-			{"::"}
-		</>
-		))}
-		<h2>Recent Posts</h2>
-		{allPosts.map((post:any) => <Post
-			url={post.url}
-			title={post.frontmatter.title}
-			date={post.frontmatter.date}
-			shortDesc={post.frontmatter.desc}
-		/>)}
-	</article>
+  <article>
+    <h1 id="title-name">rozukke::</h1>
+    <p>
+      I'm Artemis, a software engineer based
+      in <em>Melbourne, Australia</em>.
+    </p>
+    <p>
+      I currently work at <Link href="https://shield.ai/"></Link>,
+      where I develop computer vision software for  primarily in <em>C++</em>.
+      On the side, I teach a couple of <em>C++</em> subjects at
+      <Link href="https://www.rmit.edu.au/">RMIT University</Link>.
+    </p>
+    <p>
+      I specialise in code architecture and development using unmanaged languages.
+      In my limited free time I enjoy development using newer, more niche languages
+      (like Rust and Zig). Trying to get into blogging.
+    </p>
+    <h2>Socials</h2>
+    <p>
+      Find me below and shoot me a message if you're interesting in something I'm doing.
+    </p>
+    <ul>
+    {SOCIAL.map(INFO => (
+    <li>
+      <Link href={INFO.HREF} hero={false}>{INFO.NAME}</Link>
+      {"::"}
+    </li>
+    ))}
+    <li class="line-clamp-1">
+      <Link href={`mailto:${SITE.EMAIL}`} hero={false}>
+        {SITE.EMAIL}
+      </Link>
+    </li>
+    </ul>
+    <h2>Recent Posts</h2>
+    {blogPosts.map((post) => <Post
+      url={`/${post.collection}/${post.slug}`}
+      title={post.data.title}
+      date={post.data.date}
+      shortDesc={post.data.description}
+    />)}
+  </article>
 </Base>
 
 <style>
+ul {
+  display: flex;
+  padding-left: 0px;
+}
+
+li {
+  list-style: none;
+  padding-right: 0.3em;
+}
 
 #title-name::after {
-	content: "artemis rosman";
-	display: block;
-	margin-top: -1em;
-	margin-bottom: 1em;
-	color: var(--contrast-color);
-	font-size: 0.5em;
+  content: "artemis rosman";
+  display: block;
+  margin-top: -0.9em;
+  margin-bottom: 1em;
+  color: var(--contrast-color);
+  font-size: 0.5em;
 }
 
 </style>

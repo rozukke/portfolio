@@ -1,0 +1,51 @@
+---
+const { href, external, underline = true, hero = true } = Astro.props;
+---
+
+<><a href={href}><slot/></a></>
+
+<style>
+a {
+	/* before needs pos */
+	position: relative;
+	font-weight: bold;
+	text-decoration: underline wavy transparent;
+	text-decoration-skip-ink: none;
+	transition: text-decoration-color 0.2s ease-in-out;
+	color: var(--contrast-color);
+}
+
+a:hover {
+	text-decoration-color: var(--hero-color);
+}
+
+a::before {
+	content: attr(href);
+	position: absolute;
+	top: -2em;
+
+	opacity: 0%;
+	pointer-events: none;
+
+	line-height: 1;
+	font-size: 0.7rem;
+	width: fit-content;
+	height: fit-content;
+	white-space: nowrap;
+
+	padding: 1em 1em;
+	border-radius: 0.5em;
+
+	background-color: var(--bg-color-transparent);
+	color: white;
+	font-family: "Fira Space Mono", monospace;
+
+	transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+a:hover::before {
+	visibility: visible;
+	opacity: 100%;
+	transform: translateY(-1em);
+}
+</style>
