@@ -10,7 +10,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-AU", {
     <div>
       <h3>{title}</h3>
       <p>{shortDesc}</p>
-      <span class="date">{dateFormatter.format(new Date(date))}</span>
+      <span style="color: grey;">{dateFormatter.format(new Date(date))}</span>
     </div>
     <div>
 
@@ -29,20 +29,20 @@ const dateFormatter = new Intl.DateTimeFormat("en-AU", {
 }
 
 .blog-post h3 {
-  margin-top: 0px;
+  font-size: 1.2em;
 }
 
 .blog-post:hover {
   border: 1px solid white;
 }
 
-.date {
-  color: gray;
-  font-family: "Space Mono", monospace;
+h3 {
+  margin-top: 0.5em;
 }
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 p {

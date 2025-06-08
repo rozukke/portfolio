@@ -1,8 +1,8 @@
 ---
-title: "Promise"
+title: "Promise to myself"
+description: "A short promise for the future"
 date: 2025-05-26
-desc: "A short promise for the future"
+draft: false
 ---
 
-# Promise
 A promise to finish this off! I swear I will definitely have blogs on here one day soon!!

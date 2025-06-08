@@ -1,0 +1,26 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import Base from "@layouts/Base.astro"
+import Post from "@components/Post.astro";
+
+const data = (await getCollection("blog"))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base
+	pageTitle="blog"
+	description="rozukke's development and general blog"
+	animateStatic={false}
+>
+	<article>
+		<h2>Blog (Under Construction!)</h2>
+		<p>This page is undergoing heavy work.</p>
+		{data.map((post:any) => <Post
+			url={post.slug}
+			title={post.data.title}
+			date={post.data.date}
+			shortDesc={post.data.description}
+		/>)}
+	</article>
+</Base>
