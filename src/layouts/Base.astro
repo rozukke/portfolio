@@ -26,7 +26,7 @@ const {pageTitle, description, readingMode} = Astro.props;
 		</nav>
 		<slot/>
 		<footer>
-			<span>Copyright &copy {new Date().getFullYear()} Artemis Rosman</span>
+			<span>Copyright &copy; {new Date().getFullYear()} Artemis Rosman</span>
 		</footer>
 	</body>
 </html>
@@ -45,8 +45,7 @@ const {pageTitle, description, readingMode} = Astro.props;
 
 	nav>a {
 		background-color: transparent;
-		color: var(--text-color);
-		opacity: 40%;
+		color: var(--uhl-color);
 
 		outline: none;
 		border: none;

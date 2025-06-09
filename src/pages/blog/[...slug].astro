@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
+import { readingTime, formatDate } from "@lib/utils"
 import Base from "@layouts/Base.astro";
 
 export async function getStaticPaths() {
@@ -19,9 +20,12 @@ const { Content } = await post.render();
 
 <Base title={post.data.title} description={post.data.description} readingMode={true}>
 <article>
-  <h1>
+  <p class="text-small">{readingTime(post.body)} min read &bull; {formatDate(post.data.date)}</p>
+  <h2 id="heading">
     {post.data.title}
-  </h1>
+  </h2>
+  <hr/>
+  <br/>
   <Content/>
 </article>
 </Base>
@@ -31,5 +35,9 @@ const { Content } = await post.render();
     background-color: var(--bg-color);
     height: 100%;
     padding: 0px 3em;
+  }
+
+  #heading {
+    margin-top: -1rem;
   }
 </style>

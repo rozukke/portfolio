@@ -1,5 +1,8 @@
 ---
 import Base from "@layouts/Base.astro"
+import Link from "@components/Link.astro";
+import { SOCIAL } from "@const";
+const github = SOCIAL.find((entry) => entry.NAME == "github");
 ---
 
 <Base
@@ -8,7 +11,7 @@ import Base from "@layouts/Base.astro"
 	showPicture={false}
 >
 	<article>
-		<h2>Under Construction!</h2>
-		<p>This page has not been created yet!</p>
+		<h2>Under Construction &#x26A0;</h2>
+		<p>While I haven't prettified my projects list yet, you can still check out most of my work on <Link href={github.HREF}>{github.NAME}.</p>
 	</article>
 </Base>
