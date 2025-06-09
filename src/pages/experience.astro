@@ -1,5 +1,8 @@
 ---
-import Base from "@layouts/Base.astro"
+import Base from "@layouts/Base.astro";
+import Link from "@components/Link.astro";
+import { SOCIAL } from "@const";
+const linkedin = SOCIAL.find((entry) => entry.NAME == "linkedin");
 ---
 
 <Base
@@ -8,7 +11,7 @@ import Base from "@layouts/Base.astro"
 	showPicture={false}
 >
 	<article>
-		<h2>Under Construction!</h2>
-		<p>This page has not been created yet!</p>
+		<h2>Under Construction &#x26A0;</h2>
+		<p>While I haven't prettified my experience list yet, you can still check it out on <Link href={linkedin.HREF}>{linkedin.NAME}.</p>
 	</article>
 </Base>

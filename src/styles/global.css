@@ -1,5 +1,6 @@
 :root {
 	--text-color: #ddd;
+	--uhl-color: #666;
 	--hero-color: #5c7;
 	--contrast-color: #ff3077;
 	--bg-color: #000010;
@@ -35,13 +36,22 @@ article {
 	color: var(--hero-color);
 }
 
+.text-small {
+	color: var(--contrast-color);
+	font-size: 0.8rem;
+	font-family: "Fira Code Variable", monospace;
+	font-weight: bold;
+}
+
 h1,
 h2,
 h3 {
 	color: var(--hero-color);
+
 	font-family: "Fira Code Variable", monospace;
 	font-weight: 600;
-	margin-top: 25px;
+
+	margin-top: 1.5rem;
 	margin-bottom: 5px;
 }
 
@@ -49,31 +59,27 @@ h1 {
 	font-size: 3rem;
 }
 
+h2 {
+	font-size: 1.5rem;
+}
+
 p {
-	margin-bottom: 15px;
+	margin-bottom: 1rem;
 	line-height: 2rem;
-}
-
-a {
-	color: var(--text-color);
-}
-
-.hero {
-	color: var(--hero-color);
 }
 
 .code {
 	background-color: var(--bg-color);
 	padding: 0.5em;
 	border-radius: 0.5em;
-}
-
-footer {
-	color: grey;
+	font-family: "Fira Code Variable", monospace;
 }
 
 @media screen and (max-width: 600px) {
 	nav {
 		display: inline;
+	}
+	html {
+		font-size: 30px;
 	}
 }

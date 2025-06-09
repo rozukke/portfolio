@@ -14,8 +14,8 @@ const data = (await getCollection("blog"))
 	animateStatic={false}
 >
 	<article>
-		<h2>Blog (Under Construction!)</h2>
-		<p>This page is undergoing heavy work.</p>
+		<h2>Blog</h2>
+		<p>Sorting and filtering options will be added when there are more blogs to sort and filter.</p>
 		{data.map((post:any) => <Post
 			url={post.slug}
 			title={post.data.title}
