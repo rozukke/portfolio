@@ -28,8 +28,8 @@ body {
 }
 
 article {
-	width: 800px;
-	max-width: 90%;
+	width: 700px;
+	padding: 0 1em;
 }
 
 .hero {
