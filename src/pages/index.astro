@@ -18,35 +18,36 @@ const blogPosts = (await getCollection("blog"))
     <h1 id="title-name">rozukke::</h1>
     <p>
       I'm Artemis, a software engineer based
-      in <em>Melbourne, Australia</em>.
+      in <i>Melbourne, Australia</i>.
     </p>
     <p>
-      I currently work at <Link href="https://shield.ai/">Shield AI</Link>,
-      where I develop computer vision software for autonomous aircraft primarily in <em>C++</em>.
-      On the side, I teach a couple of <em>C++</em> subjects at
-      <Link href="https://www.rmit.edu.au/">RMIT University</Link>.
+      I currently work full-time at <Link href="https://shield.ai/">Shield AI</Link>,
+      where I develop computer vision software for autonomous aircraft primarily in <i>C++</i>.
+      On the side, I teach a couple of <i>C++</i> subjects at
+      <Link href="https://www.rmit.edu.au/">RMIT University</Link>. I have not yet graduated.
     </p>
     <p>
-      I specialise in code architecture and development using unmanaged languages.
+      I specialise in code architecture and unmanaged languages.
       In my limited free time I enjoy development using newer, more niche languages
-      (like <em>Rust</em> and <em>Zig</em>). Will eventually write some blogs.
+      (like <i>Rust</i> and <i>Zig</i>). Will eventually write some blogs. Feel free to
+      check out some of my projects in the listings below <i>(WIP)</i>.
     </p>
     <h2>Socials</h2>
     <p>
       Find me below and shoot me a message if you're interested in something I'm doing.
     </p>
     <ul>
-    {SOCIAL.map(INFO => (
-    <li>
-      <Link href={INFO.HREF} hero={false}>{INFO.NAME}</Link>
-      {"::"}
-    </li>
-    ))}
-    <li class="line-clamp-1">
-      <Link href={`mailto:${SITE.EMAIL}`} hero={false}>
-        {SITE.EMAIL}
-      </Link>
-    </li>
+      {SOCIAL.map(INFO => (
+      <li>
+        <Link href={INFO.HREF} hero={false}>{INFO.NAME}</Link>
+        {"::"}
+      </li>
+      ))}
+      <li class="line-clamp-1">
+        <Link href={`mailto:${SITE.EMAIL}`} hero={false}>
+          {SITE.EMAIL}
+        </Link>
+      </li>
     </ul>
     <h2>Recent Posts</h2>
     {blogPosts.map((post) => <Post
