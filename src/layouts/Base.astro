@@ -43,6 +43,7 @@ const {pageTitle, description, readingMode} = Astro.props;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		overflow-x: hidden;
 		overflow-y: auto;
 		width: 100%;
 	}
@@ -50,7 +51,8 @@ const {pageTitle, description, readingMode} = Astro.props;
 	nav {
 		width: 100%;
 		color: var(--hero-color);
-		display: inline-flex;
+		display: flex;
+		flex-wrap: wrap;
 		padding-left: 0.5em;
 
 		font-size: 2rem;
@@ -75,5 +77,6 @@ const {pageTitle, description, readingMode} = Astro.props;
 	footer {
 		margin-top: 1em;
 		color: grey;
+		font-size: 0.7rem;
 	}
 </style>
