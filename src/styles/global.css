@@ -30,7 +30,7 @@ body {
 main {
 	width: 700px;
 	max-width: 100%;
-	padding: 2em 1em;
+	padding: 1em 1em;
 }
 
 
@@ -53,8 +53,8 @@ h3 {
 	font-family: "Fira Code Variable", monospace;
 	font-weight: 600;
 
-	margin-top: 1.5rem;
-	margin-bottom: 5px;
+	margin-top: 1rem;
+	margin-bottom: 0.5rem;
 }
 
 h1 {
@@ -88,4 +88,12 @@ p {
 		max-width: 100%;
 	}
 
+}
+
+.animate {
+	opacity: 0%;
+	transition: opacity .25s ease-out;
+}
+.animate.show {
+	opacity: 100%;
 }
