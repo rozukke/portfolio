@@ -19,8 +19,8 @@ const { Content } = await post.render();
 ---
 
 <Base title={post.data.title} description={post.data.description} readingMode={true}>
-<article>
-  <p class="text-small">{readingTime(post.body)} min read &bull; {formatDate(post.data.date)}</p>
+<article class="animate">
+  <p class="text-small margin-top">{readingTime(post.body)} min read &bull; {formatDate(post.data.date)}</p>
   <h2 id="heading">
     {post.data.title}
   </h2>
@@ -31,6 +31,10 @@ const { Content } = await post.render();
 </Base>
 
 <style>
+  .margin-top {
+    margin-top: 1rem;
+  }
+
   #heading {
     margin-top: -1rem;
   }
