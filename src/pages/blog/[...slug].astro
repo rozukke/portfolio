@@ -21,7 +21,7 @@ const { Content } = await post.render();
 <Base title={post.data.title} description={post.data.description} readingMode={true}>
 <article class="animate">
   <p class="text-small margin-top">{readingTime(post.body)} min read &bull; {formatDate(post.data.date)}</p>
-  <h2 id="heading">
+  <h1 id="heading">
     {post.data.title}
   </h2>
   <hr/>
