@@ -1,0 +1,56 @@
+---
+
+---
+
+<canvas id="bellCurve"></canvas>
+
+<style>
+  canvas {
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+  }
+</style>
+
+<script>
+  import { Chart } from "chart.js";
+  import "./chart-setup.ts";
+
+  window.addEventListener("load", function () {
+    const bellCurve = document.querySelector("#bellCurve");
+
+    new Chart(bellCurve as HTMLCanvasElement, {
+      data: {
+        labels: ["Quit", "No-show", "Think-for-me", "Active", "Empassioned"],
+        datasets: [
+          {
+            type: "line",
+            label: "% of students",
+            data: [30, 35, 20, 10, 5],
+            borderWidth: 2,
+            cubicInterpolationMode: "monotone",
+            tension: 0.4,
+            borderColor: "#5c7",
+            backgroundColor: "#5c78",
+          },
+          {
+            type: "bar",
+            label: "% of students",
+            data: [25, 35, 25, 10, 5],
+            borderWidth: 2,
+            borderRadius: 20,
+            borderSkipped: false,
+            borderColor: "#f37",
+            backgroundColor: "#f378",
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  });
+</script>

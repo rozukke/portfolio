@@ -1,14 +1,14 @@
 ---
-import "../styles/reset.css"
-import "../styles/global.css"
-import '@fontsource/libre-baskerville';
-import '@fontsource/libre-baskerville/700.css';
-import '@fontsource/libre-baskerville/400-italic.css';
-import '@fontsource-variable/fira-code';
+import "../styles/reset.css";
+import "../styles/global.css";
+import "@fontsource/libre-baskerville";
+import "@fontsource/libre-baskerville/700.css";
+import "@fontsource/libre-baskerville/400-italic.css";
+import "@fontsource-variable/jetbrains-mono";
 import AnimatedBackground from "@components/AnimatedBackground.astro";
 import Head from "@components/Head.astro";
 
-const {pageTitle, description, readingMode} = Astro.props;
+const { pageTitle, description, readingMode } = Astro.props;
 ---
 
 <html lang="en">
@@ -17,9 +17,9 @@ const {pageTitle, description, readingMode} = Astro.props;
 	</head>
 	<body>
 		<AnimatedBackground
-		showPicture={!readingMode}
-		showStatic={!readingMode}
-		animateStatic={!readingMode}
+			showPicture={!readingMode}
+			showStatic={!readingMode}
+			animateStatic={!readingMode}
 		/>
 		<div class="content">
 			<nav class="animate">
@@ -29,7 +29,7 @@ const {pageTitle, description, readingMode} = Astro.props;
 				<a href="/blog/">blog</a>
 			</nav>
 			<main>
-				<slot/>
+				<slot />
 			</main>
 			<footer>
 				<span>Copyright &copy; {new Date().getFullYear()} Artemis Rosman</span>
@@ -56,11 +56,11 @@ const {pageTitle, description, readingMode} = Astro.props;
 		padding: 0 0.5em;
 
 		font-size: 2rem;
-		font-family: "Fira Code Variable", monospace;
+		font-family: "JetBrains Mono Variable", monospace;
 		font-weight: 400;
 	}
 
-	nav>a {
+	nav > a {
 		background-color: transparent;
 		color: var(--uhl-color);
 
@@ -69,7 +69,7 @@ const {pageTitle, description, readingMode} = Astro.props;
 		text-decoration: none;
 	}
 
-	nav>a:hover {
+	nav > a:hover {
 		color: var(--hero-color);
 		opacity: 100%;
 	}

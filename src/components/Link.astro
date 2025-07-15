@@ -1,51 +1,51 @@
 ---
-const { href, external, underline = true, hero = true } = Astro.props;
+const { href } = Astro.props;
 ---
 
-<><a href={href}><slot/></a></>
+<><a href={href}><slot /></a></>
 
 <style>
-a {
-	/* before needs pos */
-	position: relative;
-	font-weight: 700;
-	text-decoration: underline wavy transparent;
-	text-decoration-skip-ink: none;
-	transition: text-decoration-color 0.2s ease-in-out;
-	color: var(--contrast-color);
-}
+  a {
+    /* before needs pos */
+    position: relative;
+    font-weight: 700;
+    text-decoration: underline wavy transparent;
+    text-decoration-skip-ink: none;
+    transition: text-decoration-color 0.2s ease-in-out;
+    color: var(--contrast-color);
+  }
 
-a:hover {
-	text-decoration-color: var(--hero-color);
-}
+  a:hover {
+    text-decoration-color: var(--hero-color);
+  }
 
-a::before {
-	content: attr(href);
-	position: absolute;
-	top: -2em;
+  a::before {
+    content: attr(href);
+    position: absolute;
 
-	opacity: 0%;
-	pointer-events: none;
+    opacity: 0%;
+    pointer-events: none;
 
-	line-height: 1;
-	font-size: 0.7rem;
-	width: fit-content;
-	height: fit-content;
-	white-space: nowrap;
+    line-height: 1;
+    font-size: 0.7rem;
+    word-break: break-all;
+    width: 20rem;
+    max-width: max-content;
+    color: var(--text-color);
 
-	padding: 1em 1em;
-	border-radius: 0.5em;
+    padding: 1em 1em;
+    border-radius: 0.5em;
 
-	background-color: var(--bg-color-transparent);
-	color: white;
-	font-family: "Fira Space Mono", monospace;
+    background-color: var(--bg-color-transparent);
 
-	transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
-}
+    transition:
+      opacity 0.2s ease-in-out,
+      transform 0.2s ease-in-out;
+  }
 
-a:hover::before {
-	visibility: visible;
-	opacity: 100%;
-	transform: translateY(-1em);
-}
+  a:hover::before {
+    visibility: visible;
+    opacity: 100%;
+    transform: translateY(-100%);
+  }
 </style>

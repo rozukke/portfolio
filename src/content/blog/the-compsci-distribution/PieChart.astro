@@ -1,0 +1,80 @@
+---
+
+---
+
+<canvas id="pieChart"></canvas>
+
+<style>
+  canvas {
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+  }
+</style>
+
+<script>
+  import { Chart } from "chart.js";
+  import "./chart-setup.ts";
+
+  window.addEventListener("load", function () {
+    const pieChart = document.querySelector("#pieChart");
+
+    new Chart(pieChart as HTMLCanvasElement, {
+      options: {
+        plugins: {
+          subtitle: {
+            display: true,
+            text: "mouse over the sections to get slightly more detail",
+          },
+        },
+      },
+      data: {
+        labels: [
+          "Electrical is easier actually",
+          "The hype was wrong",
+          "Mystery box",
+          "Lazy",
+          "Soft drop",
+          "Please help, ChatGPT",
+          "Please help, Tutor",
+          "Career change",
+          "Young and motivated",
+          "Enthusiast",
+          "Here to get a piece of paper",
+        ],
+        datasets: [
+          {
+            type: "doughnut",
+            label: "% of students",
+            data: [10, 15, 15, 10, 10, 15, 10, 5, 5, 2.5, 2.5],
+            borderColor: [
+              "#f37",
+              "#f37",
+              "#e37177",
+              "#e37177",
+              "#e37177",
+              "#c29677",
+              "#c29677",
+              "#98b377",
+              "#98b377",
+              "#5c7",
+              "#5c7",
+            ],
+            backgroundColor: [
+              "#f377",
+              "#f377",
+              "#e3717777",
+              "#e3717777",
+              "#e3717777",
+              "#c2967777",
+              "#c2967777",
+              "#98b37777",
+              "#98b37777",
+              "#5c77",
+              "#5c77",
+            ],
+          },
+        ],
+      },
+    });
+  });
+</script>

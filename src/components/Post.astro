@@ -1,5 +1,5 @@
 ---
-const {url, title, date, shortDesc} = Astro.props;
+const { url, title, date, shortDesc } = Astro.props;
 const dateFormatter = new Intl.DateTimeFormat("en-AU", {
   dateStyle: "medium",
 });
@@ -12,41 +12,39 @@ const dateFormatter = new Intl.DateTimeFormat("en-AU", {
       <p>{shortDesc}</p>
       <span style="color: grey;">{dateFormatter.format(new Date(date))}</span>
     </div>
-    <div>
-
-    </div>
+    <div></div>
   </div>
 </a>
 
 <style>
-.blog-post {
-  padding: 1em 1.5em;
-  border-radius: 10px;
-  border: 2px solid transparent;
-  margin-top: 20px;
+  .blog-post {
+    padding: 1em 1.5em;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    margin-top: 20px;
 
-  background-color: var(--bg-color-transparent);
-  color: white;
-}
+    background-color: var(--bg-color-transparent);
+    color: white;
+  }
 
-.blog-post h3 {
-  font-size: 1.2rem;
-}
+  .blog-post h3 {
+    font-size: 1.2rem;
+  }
 
-.blog-post:hover {
-  border: 2px solid white;
-}
+  .blog-post:hover {
+    border: 2px solid white;
+  }
 
-h3 {
-  margin-top: 0.5em;
-}
+  h3 {
+    margin-top: 0.5em;
+  }
 
-a {
-  text-decoration: none;
-  cursor: pointer;
-}
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
 
-p {
-  margin-bottom: 2px;
-}
+  p {
+    margin-bottom: 2px;
+  }
 </style>
