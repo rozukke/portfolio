@@ -1,8 +1,8 @@
 ---
-import Base from "@layouts/Base.astro"
+import Base from "@layouts/Base.astro";
 import Link from "@components/Link.astro";
 import { SOCIAL } from "@const";
-const github = SOCIAL.find((entry) => entry.NAME == "github");
+const github = SOCIAL.find((entry) => entry.NAME == "github")!;
 ---
 
 <Base
@@ -12,6 +12,9 @@ const github = SOCIAL.find((entry) => entry.NAME == "github");
 >
 	<article>
 		<h2>Under Construction &#x26A0;</h2>
-		<p>While I haven't prettified my projects list yet, you can still check out most of my work on <Link href={github.HREF}>{github.NAME}.</p>
+		<p>
+			While I haven't prettified my projects list yet, you can still check out
+			most of my work on <Link href={github.HREF}>{github.NAME}.</Link>
+		</p>
 	</article>
 </Base>

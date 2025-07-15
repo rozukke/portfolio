@@ -1,16 +1,16 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
-import { readingTime, formatDate } from "@lib/utils"
+import { readingTime, formatDate } from "@lib/utils";
 import Base from "@layouts/Base.astro";
 
 export async function getStaticPaths() {
-const posts = (await getCollection("blog"))
-.filter(post => !post.data.draft)
-.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-return posts.map((post) => ({
-params: { slug: post.slug },
-props: post,
-}));
+  const posts = (await getCollection("blog"))
+    .filter((post) => !post.data.draft)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
 }
 type Props = CollectionEntry<"blog">;
 
@@ -18,16 +18,24 @@ const post = Astro.props;
 const { Content } = await post.render();
 ---
 
-<Base title={post.data.title} description={post.data.description} readingMode={true}>
-<article class="animate">
-  <p class="text-small margin-top">{readingTime(post.body)} min read &bull; {formatDate(post.data.date)}</p>
-  <h1 id="heading">
-    {post.data.title}
-  </h2>
-  <hr/>
-  <br/>
-  <Content/>
-</article>
+<Base
+  title={post.data.title}
+  description={post.data.description}
+  readingMode={true}
+>
+  <article class="animate">
+    <p class="text-small margin-top">
+      {readingTime(post.body)} min read &bull; {formatDate(post.data.date)}
+    </p>
+    <h1 id="heading">
+      {post.data.title}
+    </h1>
+    <h3>
+      {post.data.description}
+    </h3>
+    <hr />
+    <Content />
+  </article>
 </Base>
 
 <style>
@@ -37,5 +45,26 @@ const { Content } = await post.render();
 
   #heading {
     margin-top: -1rem;
+  }
+
+  h3 {
+    color: var(--uhl-color);
+    margin-bottom: 1rem;
+  }
+</style>
+
+<style is:global>
+  hr {
+    margin-bottom: 1rem;
+  }
+
+  li {
+    margin-bottom: 1rem;
+    line-height: 2rem;
+  }
+
+  .expressive-code {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
   }
 </style>

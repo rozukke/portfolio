@@ -6,42 +6,47 @@ import Link from "@components/Link.astro";
 import { SITE, SOCIAL } from "@const";
 
 const blogPosts = (await getCollection("blog"))
-  .filter(post => !post.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<Base
-  pageTitle="rozukke"
-  description="rozukke's dev website."
->
+<Base pageTitle="rozukke" description="rozukke's dev website.">
   <h1 class="animate" id="title-name">rozukke::</h1>
   <p class="animate">
-    I'm Artemis, a software engineer based
-    in <i>Melbourne, Australia</i>.
+    I'm Artemis, a software engineer based in <i>Melbourne, Australia</i>.
   </p>
   <p class="animate">
-    I currently work full-time at <Link href="https://shield.ai/">Shield AI</Link>,
-    where I develop computer vision software for autonomous aircraft primarily in <i>C++</i>.
-    On the side, I teach a couple of <i>C++</i> subjects at
-    <Link href="https://www.rmit.edu.au/">RMIT University</Link>. I graduate next year.
+    I currently work full-time at <Link href="https://shield.ai/"
+      >Shield AI</Link
+    >, where I develop computer vision software for autonomous aircraft
+    primarily in <i>C++</i>. On the side, I teach a couple of <i>C++</i> subjects
+    at
+    <Link href="https://www.rmit.edu.au/">RMIT University</Link>. I graduate
+    next year.
   </p>
   <p class="animate">
-    I specialise in code architecture and unmanaged languages.
-    In my limited free time I enjoy development using newer, more niche languages
-    (like <i>Rust</i> and <i>Zig</i>). Will eventually write some blogs. Feel free to
-    check out some of my projects in the listings below <i>(WIP)</i>.
+    I specialise in code architecture and unmanaged languages. In my limited
+    free time I enjoy development using newer, more niche languages (like <i
+      >Rust</i
+    > and <i>Zig</i>). Will eventually write some blogs. Feel free to check out
+    some of my projects in the listings below <i>(WIP)</i>.
   </p>
   <h2 class="animate">Socials::</h2>
   <p class="animate">
-    Find me below and shoot me a message if you're interested in something I'm doing.
+    Find me below and shoot me a message if you're interested in something I'm
+    doing.
   </p>
   <ul class="animate">
-    {SOCIAL.map(INFO => (
-    <li>
-      <Link href={INFO.HREF} hero={false}>{INFO.NAME}</Link>
-      {"::"}
-    </li>
-    ))}
+    {
+      SOCIAL.map((INFO) => (
+        <li>
+          <Link href={INFO.HREF} hero={false}>
+            {INFO.NAME}
+          </Link>
+          {"::"}
+        </li>
+      ))
+    }
     <li>
       <Link href={`mailto:${SITE.EMAIL}`} hero={false}>
         {SITE.EMAIL}
@@ -49,33 +54,36 @@ const blogPosts = (await getCollection("blog"))
     </li>
   </ul>
   <h2 class="animate">Recent Posts::</h2>
-  {blogPosts.map((post) => <Post
-    url={`/${post.collection}/${post.slug}`}
-    title={post.data.title}
-    date={post.data.date}
-    shortDesc={post.data.description}
-  />)}
+  {
+    blogPosts.map((post) => (
+      <Post
+        url={`/${post.collection}/${post.slug}`}
+        title={post.data.title}
+        date={post.data.date}
+        shortDesc={post.data.description}
+      />
+    ))
+  }
 </Base>
 
 <style>
-ul {
-  display: flex;
-  flex-wrap: wrap;
-  padding-left: 0px;
-}
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0px;
+  }
 
-li {
-  list-style: none;
-  padding-right: 0.3em;
-}
+  li {
+    list-style: none;
+    padding-right: 0.3em;
+  }
 
-#title-name::after {
-  content: "artemis rosman";
-  display: block;
-  margin-top: -0.9em;
-  margin-bottom: 1em;
-  color: var(--contrast-color);
-  font-size: 0.5em;
-}
-
+  #title-name::after {
+    content: "artemis rosman";
+    display: block;
+    margin-top: -0.9em;
+    margin-bottom: 1em;
+    color: var(--contrast-color);
+    font-size: 0.5em;
+  }
 </style>

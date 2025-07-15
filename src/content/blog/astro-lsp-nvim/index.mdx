@@ -1,0 +1,85 @@
+---
+title: "Astro LSP setup for Neovim 0.11 without nvim-lspconfig"
+description: "A short guide for a full-featured but minimal setup."
+date: 2025-07-07
+draft: false
+---
+import Link from "@components/Link.astro";
+
+Neovim 0.11 brought with it some convenient new features, such as:
+- Improved LSP setup and configuration
+- More default keybindings for LSP actions
+- More default keybindings for navigating lists
+- Configurable virtual error text
+- Built-in auto completion and better hover docs
+
+While not life-changing in the slightest, it helps in the everlasting battle against the size of one's Neovim config, and improves QoL enough to be significant. For a more detailed changelog, check out <Link href="https://gpanders.com/blog/whats-new-in-neovim-0-11/#improved-hover-documentation">this blog post</Link> by Gregory Anders, which goes over every change thoroughly.
+
+Of particular interest to me was the improved LSP setup feature. LSP is, for the most part, a pitch-black box, which meant that now that the whole thing could be configured with a single Lua table and one function call, I could finally drop some of the heavy and opaque LSP dependencies. I decided to go all the way and drop `nvim-lspconfig` as well, since I don't have very many LSPs to configure and and thought myself man enough to write some config files.
+
+## The Catch
+When configuring the Astro LSP, I ran into a couple of issues:
+1. Astro needs the location of Typescript resources to be injected into the config.
+2. MDX language support is null and void. Not even syntax highlighting!
+
+There is a field under `typescript` called `tsdk` that indicates the location of Typescript absolutely or relative to the root folder of a project. Sure, you can hard-code it... but I, for one, think that is a solution for chumps.
+
+In the <Link href="https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/configs/astro.lua">default config</Link> provided by `nvim-lspconfig`, a function pointer called `on_new_config` is used to resolve the dependency by searching for it at runtime. Naturally, no such field exists on the 0.11 configuration table.
+
+## The Search
+I couldn't find anything related with a cursory google - woe is me.
+
+Luckily, I had developed an investigative skill while working on a <Link href="https://github.com/rozukke/rust-gan">fucked up project</Link> involving a capital-U Undocumented Nix deployment of a Rust and Python interop scenario. The name of that skill -- GitHub search.
+
+In the words of one of the all-time greats:
+
+> Software is built on the shoulders of giants.\
+> -Isaac Newton
+
+...so we might as well use the fact that someone else has probably figured it out before. If there is a specific API you want to see in action, it doesn't get much easier than looking for a notable function or variable name with a filter on files for your language of choice and doing a global search for it on GitHub:
+
+```
+path:**.lua astro-ls
+```
+
+Any path with a lua file under `nvim/lsp/` is a 0.11 LSP configuration, and holds the solution to our woes. Reading the docs can suck it.
+
+## The Solution
+Neovim 0.11 provides a function pointer equivalent to `nvim-lspconfig`'s `on_new_config`: <Link href="https://neovim.io/doc/user/lsp.html#vim.lsp.ClientConfig">`before_init`</Link>. It's briefly mentioned in the official documentation but does't really exist anywhere outside of that.
+
+Using that function pointer, we can ape the original config and come up with something along the lines of:
+
+```lua
+-- .config/nvim/lsp/astro.lua 
+local function get_tsserver_path(root_dir)
+  local project_root = vim.fs.dirname(vim.fs.find("node_modules", { path = root_dir, upward = true })[1])
+  return project_root and vim.fs.joinpath(project_root, "node_modules", "typescript", "lib") or ""
+end
+
+return {
+  cmd = {
+    "astro-ls",
+    "--stdio",
+  },
+  filetypes = {
+    "astro",
+    "ts",
+  },
+  root_markers = {
+    "package.json",
+    "tsconfig.json",
+    "jsconfig.json",
+    ".git",
+  },
+  init_options = {
+    typescript = {},
+  },
+  before_init = function(_, config)
+    if not config.init_options.typescript.tsdk then
+      require("snacks").notifier.notify("Attaching astro")
+      config.init_options.typescript.tsdk = get_tsserver_path(config.root_dir)
+    end
+  end,
+}
+```
+
