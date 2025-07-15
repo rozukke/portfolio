@@ -1,17 +1,11 @@
 # rozukke's Portfolio
 
-WIP. Deployed on Cloudflare.
-
-Ideas:
-
-- "real dev" mode
-- Pop-ups with the ability to fullscreen them for things like blogs, projects and so on
+**WIP**. Intended as a simple blog + portfolio. Deployed on Cloudflare Pages.
 
 ## License
 
 ```
-Portfolio website - statically hosted website with terminal emlator theme
-Copyright (C) 2025 Artemis Rosman
+Portfolio website (C) 2025 Artemis Rosman
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
