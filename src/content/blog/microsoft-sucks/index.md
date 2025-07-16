@@ -2,7 +2,7 @@
 title: "Microsoft is the root of all evil"
 description: "A list of incompetencies, sins, and plain disrespect"
 date: 2025-06-20
-draft: false
+draft: true
 ---
 
 **This is my first hit piece!** Please forgive any deficiencies in my writing, and have mercy, for I have been faced with the unfortunate crisis of wishing I had tried a bit harder in English class.

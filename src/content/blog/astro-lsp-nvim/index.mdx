@@ -34,18 +34,18 @@ Luckily, I had developed an investigative skill while working on a <Link href="h
 In the words of one of the all-time greats:
 
 > Software is built on the shoulders of giants.\
-> -Isaac Newton
+> &emsp;-Isaac Newton
 
 ...so we might as well use the fact that someone else has probably figured it out before. If there is a specific API you want to see in action, it doesn't get much easier than looking for a notable function or variable name with a filter on files for your language of choice and doing a global search for it on GitHub:
 
 ```
-path:**.lua astro-ls
+path:nvim/lsp/**.lua astro-ls
 ```
 
-Any path with a lua file under `nvim/lsp/` is a 0.11 LSP configuration, and holds the solution to our woes. Reading the docs can suck it.
+Any path with a lua file under `nvim/lsp/` is a Neovim 0.11 LSP configuration, and holds the solution to our woes -- reading the docs can suck it. Thank you, the 10 or so people who have done this before me.
 
 ## The Solution
-Neovim 0.11 provides a function pointer equivalent to `nvim-lspconfig`'s `on_new_config`: <Link href="https://neovim.io/doc/user/lsp.html#vim.lsp.ClientConfig">`before_init`</Link>. It's briefly mentioned in the official documentation but does't really exist anywhere outside of that.
+Through my search, I found that Neovim 0.11 provides a function pointer equivalent to `nvim-lspconfig`'s `on_new_config`, which is called <Link href="https://neovim.io/doc/user/lsp.html#vim.lsp.ClientConfig">`before_init`</Link>. It's briefly mentioned in the official documentation but doesn't really exist anywhere outside of that.
 
 Using that function pointer, we can ape the original config and come up with something along the lines of:
 
@@ -76,10 +76,34 @@ return {
   },
   before_init = function(_, config)
     if not config.init_options.typescript.tsdk then
-      require("snacks").notifier.notify("Attaching astro")
       config.init_options.typescript.tsdk = get_tsserver_path(config.root_dir)
     end
   end,
 }
 ```
 
+## The Full Setup
+
+For the full setup, I decided not to bother with any form of LSP for MDX, though I did set up syntax highlighting. The full configuration is as follows:
+
+1. Install Typescript via a package manager of your choice in your project root.
+2. Use the above snippet to create an LSP config under `nvim/lsp/astro.lua`.
+3. Enable it using:
+```lua
+vim.lsp.enable({"astro"})
+-- Make sure to match the basename of the file from the step above
+```
+4. Enable MDX syntax highlighting using the `mdx.nvim` plugin. Treesitter support for MDX does not seem to have been attempted, so we once again look to the community for answers. My setup (using Lazy) is as follows:
+```lua
+{
+  "davidmh/mdx.nvim",
+  config = true,
+  -- Lazy load only when editing MDX files
+  event = "BufEnter *.mdx",
+  dependencies = { "nvim-treesitter/nvim-treesitter" },
+}
+```
+
+After completing these steps with expert precision, you should have functional Astro LSP with good-enough MDX support (I hope you're not coding up anything that requires full LSP in MDX files!) that loads the relevant copy of Typescript dynamically from your project root, all without `nvim-lspconfig`! In the process, you may have even shaved some miliseconds off your load time.
+
+For those curious, my own configuration is available <Link href="https://github.com/rozukke/dotfiles">at my dotfiles repository</Link>.
