@@ -18,11 +18,7 @@ const post = Astro.props;
 const { Content } = await post.render();
 ---
 
-<Base
-  pageTitle={post.data.title}
-  description={post.data.description}
-  readingMode={true}
->
+<Base pageTitle={post.data.title} description={post.data.description} readingMode={true}>
   <article class="animate">
     <p class="text-small margin-top">
       {readingTime(post.body)} min read &bull; {formatDate(post.data.date)}
@@ -30,9 +26,9 @@ const { Content } = await post.render();
     <h1 id="heading">
       {post.data.title}
     </h1>
-    <h3>
+    <h4>
       {post.data.description}
-    </h3>
+    </h4>
     <hr />
     <Content />
   </article>
@@ -47,9 +43,13 @@ const { Content } = await post.render();
     margin-top: -1rem;
   }
 
-  h3 {
-    color: var(--uhl-color);
-    margin-bottom: 1rem;
+  h1 {
+    font-size: 2rem;
+  }
+
+  h4 {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
   }
 </style>
 
