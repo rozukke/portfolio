@@ -2,7 +2,7 @@ import type { SocialInfo, SiteInfo } from "@types";
 
 export const SITE: SiteInfo = {
   NAME: "rozukke",
-  EMAIL: "rozukke@proton.me",
+  EMAIL: "contact@rozukke.dev",
 };
 
 export const SOCIAL: SocialInfo = [
