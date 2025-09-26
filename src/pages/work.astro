@@ -15,7 +15,7 @@ const work = await Promise.all(
   }),
 );
 
-work.sort().reverse();
+work.sort(entry => entry.data.endDate).reverse();
 ---
 
 <Base pageTitle="work" description="rozukke's list of jobs" showPicture={false}>
