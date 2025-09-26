@@ -15,7 +15,12 @@ const work = await Promise.all(
   }),
 );
 
-work.sort(entry => entry.data.endDate).reverse();
+// Deal with "Current" job
+work.sort((a, b) => {
+  if (a.data.endDate === "Current") return -1;
+  if (b.data.endDate === "Current") return 1;
+  return new Date(b.data.endDate) - new Date(a.data.endDate);
+});
 ---
 
 <Base pageTitle="work" description="rozukke's list of jobs" showPicture={false}>
