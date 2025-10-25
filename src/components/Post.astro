@@ -5,11 +5,11 @@ const dateFormatter = new Intl.DateTimeFormat("en-AU", {
 });
 ---
 
-<a href={url} class="animate">
+<a href={url} class="animate link-cancel">
   <div class="blog-post">
     <div>
       <h3>{title}</h3>
-      <p>{shortDesc}</p>
+      <p class="description">{shortDesc}</p>
       <span style="color: grey;">{dateFormatter.format(new Date(date))}</span>
     </div>
     <div></div>
@@ -17,6 +17,14 @@ const dateFormatter = new Intl.DateTimeFormat("en-AU", {
 </a>
 
 <style>
+  .description {
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+
+    color: white;
+    font-weight: normal;
+  }
+
   .blog-post {
     padding: 1em 1.5em;
     border-radius: 10px;
@@ -24,7 +32,6 @@ const dateFormatter = new Intl.DateTimeFormat("en-AU", {
     margin-top: 20px;
 
     background-color: var(--bg-color-transparent);
-    color: white;
   }
 
   .blog-post h3 {

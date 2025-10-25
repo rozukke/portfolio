@@ -4,9 +4,9 @@ import { readingTime, formatDate } from "@lib/utils";
 import Base from "@layouts/Base.astro";
 
 export async function getStaticPaths() {
-  const posts = (await getCollection("blog"))
-    .filter((post) => !post.data.draft)
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  const posts = (await getCollection("blog")).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  );
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: post,
@@ -54,6 +54,9 @@ const { Content } = await post.render();
 </style>
 
 <style is:global>
+  sup {
+    line-height: 0;
+  }
   hr {
     margin-bottom: 1rem;
   }

@@ -1,0 +1,125 @@
+---
+title: "Reverse engineering adventures: ~Unstripped Binaries~"
+description: "A documented process of programmatically hacking your way into an unstripped program."
+date: 2025-10-01
+draft: false
+---
+
+import Note from "@components/Note.astro";
+
+Reverse engineering is great! You break things, learn things, and once in a blue moon, do something
+actually useful with it. My experience is low, but after some frustrations with a certain program,
+I decided to put the big boy gloves on and deal with it myself, in as generic a way as possible. After
+all, no one wants to open Ghidra and fight with the UI to actually get something done. So, why not a
+Python script[^1]? It's pre-installed on every self-respecting OS, after all.
+
+The quirk of today's project -- what if a compiled binary wasn't stripped by the developers,
+and still holds a full symbol table? This opens up a lot of opportunities for us to directly
+mess with the binary instructions to get it to do what we want.
+
+### Setting up the scenario
+
+Let's say we have a "misbehaving" C program:
+
+```c
+// cooltest.c
+
+// A small program that performs a test of coolness
+// and calls you names based on whether or not you pass
+
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+
+bool CoolnessTest()
+{
+    FILE *f = fopen("coolness.proof", "r");
+    if (!f)
+    {
+        fprintf(stderr, "Error: file 'coolness.proof' not found.\n");
+        return false;
+    }
+
+    // Check that the file contains "secretcode"
+    char buf[256];
+    bool coolnessResult = fgets(buf, sizeof(buf), f) && strstr(buf, "secretcode");
+    fclose(f);
+    return coolnessResult;
+}
+
+int main(void)
+{
+    if (CoolnessTest())
+    {
+        printf("Success: alright, you’re cool.\n");
+        return 0;
+    }
+    else
+    {
+        fprintf(stderr, "Error: user is an idiot.\n");
+        return 1;
+    }
+}
+```
+
+<Note title="Inlining">
+`CoolnessTest` wasn't inlined for me even when compiling with `-O3`, but YMMV. This experiment won't
+work if the function of interest does not have an associated symbol.
+</Note>
+
+Obviously, no one wants to be called an idiot by cleverly arranged ones and zeroes. So... what do we do?
+We rearrange the ones and zeroes to suit our needs!
+
+Executable binaries contain the machine code for everything that goes on in the program, meaning that if
+we know where problematic code is located inside of the file, we can modify it with our own machine code
+instructions.
+
+Fortunately for us, whoever compiled this program wasn't *suuuper* concerned about security. In fact,
+even though the binary is set to a release configuration and optimised, the crucial `-s` flag is nowhere
+to be seen, which means the program still has a full symbol table for us to look at and work from.
+
+```bash
+# An simple example compile command that does not strip the symbol table of a binary.
+gcc -O2 -o cooltest cooltest.c
+```
+
+With that, we have all the setup we need to begin.
+
+### Reading from the symbol table
+
+Most distros come preinstalled with the handy `nm` program. Running it on our binary, we get
+the following:
+
+```bash
+ $ nm cooltest
+
+# 000000000040039c r __abi_tag
+# 0000000000404034 B __bss_start
+# 0000000000404048 b completed.0
+# 00000000004011d0 T CoolnessTest # <- here it is
+# 0000000000404030 D __data_start
+# 0000000000404030 W data_start
+# 0000000000401120 t deregister_tm_clones
+# ...
+```
+
+Viola! We get the address of the `CoolnessTest` function. You might even get excited and rush ahead with
+the next steps, trying to patch in a different set of instructions, but ah-ah! Not so fast. The address
+provided by `nm` may not be accurate to the binary, and depends on whether or not the executable has position independent
+addressing (PIE). To account for that
+
+<Note title="PIC and virtual addressing">
+Virtual addressing is a rather abstract topic, but it is of relevance to this project. In general terms,
+it refers to the technique of giving each file its own address space. `nm` returns the 'virtual' address
+of a function, which can differ from the real binary offset, in particular when Position Independent Code (PIC)
+is not involved.
+PIC is a technique that allows for machine code to be loaded at any virtual address at runtime.
+It is useful for shared libraries (to avoid overlap with other libraries that all need to reference addresses
+in the memory space of the base program), and as a security measure, so that an attacker cannot use
+the relative location of certain parts of memory to craft an exploit, since the distance between code
+segmets will be different each time. PIC will have a virtual address equivalent to file offset when
+inspected in the binary.
+</Note>
+
+
+[^1]: I would have preferred a bash script, but as I discovered, bash is quite bad at handling raw hex data.

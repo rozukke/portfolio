@@ -1,0 +1,15 @@
+{
+  "bracketSameLine": true,
+  "printWidth": 100,
+  "tabWidth": 2,
+  "proseWrap": "always",
+  "overrides": [
+    {
+      "files": ["*.md", "*.mdx"],
+      "options": {
+        "printWidth": 80,
+        "proseWrap": "always",
+      }
+    }
+  ]
+}
