@@ -20,9 +20,9 @@ const { Content } = await post.render();
 
 <Base pageTitle={post.data.title} description={post.data.description} readingMode={true}>
   <article class="animate">
-    <p class="text-small margin-top">
+    <span class="text-small small-margin">
       {readingTime(post.body)} min read &bull; {formatDate(post.data.date)}
-    </p>
+    </span>
     <h1 id="heading">
       {post.data.title}
     </h1>
@@ -35,12 +35,9 @@ const { Content } = await post.render();
 </Base>
 
 <style>
-  .margin-top {
+  .small-margin {
     margin-top: 1rem;
-  }
-
-  #heading {
-    margin-top: -1rem;
+    margin-bottom: 3rem;
   }
 
   h1 {

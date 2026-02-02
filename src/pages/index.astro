@@ -16,19 +16,20 @@ const blogPosts = (await getCollection("blog"))
     I'm Artemis, a software engineer based in <i>Melbourne, Australia</i>.
   </p>
   <p class="animate">
-    I currently develop
-    computer vision software primarily in <i>C++</i>. Some may know me from
-    my teaching work for a couple of <i>C++</i> subjects at
-    <Link href="https://www.rmit.edu.au/">RMIT University</Link>. I graduate next year.
+    I currently develop computer vision software primarily in <i>C++</i>. Some may know me from
+    my past teaching work at <Link href="https://www.rmit.edu.au/">RMIT University</Link>, where I
+    assisted several computer architecture courses. I finally graduate this year
+    (good riddance).
   </p>
   <p class="animate">
-    I specialise in code architecture and unmanaged languages. In my limited free time I enjoy
-    development using newer, more niche languages (like <i>Rust</i> and <i>Zig</i>). Working on
-    writing some more blogs, and doing more technical and opinion writing in general.
+    I specialise in systems development. In my limited free time I prefer to
+    write code in bearable languages (like <i>Rust</i> and <i>Zig</i>). You can see what I'm currently
+    up to on my <Link href="/now/">now</Link> page.
   </p>
-  <h2 class="animate">Socials::</h2>
+  <h2 class="animate">contact::</h2>
   <p class="animate">
-    Find me at the links below and shoot me a message if you're interested in something I'm doing.
+    Please email me if you'd like to chat or to request a copy of my CV. Any information
+    related to past experience is also available on my GitHub &amp; LinkedIn.
   </p>
   <ul class="animate">
     {
@@ -47,7 +48,7 @@ const blogPosts = (await getCollection("blog"))
       </Link>
     </li>
   </ul>
-  <h2 class="animate">Recent Posts::</h2>
+  <h2 class="animate">posts::</h2>
   {
     blogPosts.map((post) => (
       <Post

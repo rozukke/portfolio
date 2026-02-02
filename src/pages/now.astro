@@ -1,0 +1,135 @@
+---
+import Base from "@layouts/Base.astro";
+import Link from "@components/Link.astro";
+
+import Parser from 'rss-parser';
+const GOODREADS_ID = '197032067';
+const CURRENTLY_READING_URL = `https://www.goodreads.com/review/list_rss/${GOODREADS_ID}?shelf=currently-reading`;
+const UPDATES_URL = `https://www.goodreads.com/user/updates_rss/${GOODREADS_ID}`;
+
+const parser = new Parser({
+  customFields: {
+    item: [
+      ['author_name', 'author'],
+      ['book_published', 'year']
+    ],
+  }
+});
+
+let currentlyReading = null;
+let recentReads = null;
+
+try {
+  const [readingFeed, updatesFeed] = await Promise.all([
+    parser.parseURL(CURRENTLY_READING_URL),
+    parser.parseURL(UPDATES_URL)
+  ]);
+
+  currentlyReading = readingFeed?.items;
+  recentReads = updatesFeed?.items
+    .filter(item => item.contentSnippet.includes('gave') && item.contentSnippet.includes('star'))
+    .map(item => {
+      const ratingMatch = item.contentSnippet.match(/gave (\d) star/);
+      const titleCleaned = item.title
+        .split('added \'')[1]
+        ?.split('\'')[0]
+        ?.replace(/\(Hardcover\)|\(Paperback\)|\(Kindle Edition\)/g, '')
+        .trim();
+
+      const authorMatch = item.contentSnippet.match(/by\s*\n\s*(.*)/);
+      const author = authorMatch ? authorMatch[1].trim() : "Unknown Author";
+
+      return {
+        title: titleCleaned || "Unknown Title",
+        link: item.link,
+        author: author,
+        rating: ratingMatch ? parseInt(ratingMatch[1]) : null,
+      };
+    })
+    .slice(0, 3);
+} catch (e) {console.log(`failed getting goodreads: ${e}`)}
+
+const renderStars = (n) => "★".repeat(n);
+---
+
+<Base
+  pageTitle="now"
+  description="What I'm up to"
+>
+  <article class="animate">
+      <h1 id="title-now">now::</h1>
+      <p>Going on a holiday. Detoxing from the internet and the world at large. Reading more to
+      replace various unhealthy brainworms.</p>
+
+      <p>Time elapsed since I've last used a content recommendation algorithm: <span id="algo-timer">..</span>.</p>
+
+      <h2>programming::</h2>
+      <p>Trying to make copying and pasting easier for people who use many terminal panes, including
+      some that may be accessing an <code>ssh</code> connection.</p>
+      <Link href="https://github.com/rozukke/lazycp">Check out lazycp! (WIP)</Link>
+
+      <div class="read-list">
+      <h2>reading::</h2>
+      {currentlyReading ?
+          (currentlyReading.length != 0 ?
+            currentlyReading?.map((book) => (
+            <p><Link href={book.link}><strong>{book.title}</strong></Link> by {book.author} ({book.year})</p>))
+            : <p>Nothing much, looks like.</p>)
+      : <p>Looks like the Goodreads RSS API broke. Oops!</p>
+      }
+      <h2>previously read::</h2>
+      {recentReads ?
+          (recentReads.length != 0 ?
+            recentReads?.map((book) => (
+            <p><Link href={book.link}><strong>{book.title}</strong></Link> by {book.author} 「{renderStars(book.rating)}」</p>))
+            : <p>Nothing much, looks like.</p>)
+      : <p>Looks like the Goodreads RSS API broke. Oops!</p>
+      }
+      </div>
+
+  </article>
+</Base>
+
+<script>
+  function initTimer() {
+    const display = document.getElementById('algo-timer');
+    if (!display) return;
+
+    const s = (num) => num == 1 ? "" : "s";
+    const start = new Date("2025-11-13T20:33:45").getTime();
+
+    function update() {
+      const now = new Date().getTime();
+      const diff = now - start;
+
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+      display.textContent = `${d} day${s(d)}, ${h} hour${s(h)}, ${m} minute${s(m)}`;
+    }
+
+    setInterval(update, 60000);
+    update();
+  }
+
+  initTimer();
+</script>
+
+<style>
+  #title-now::after {
+    content: "february 2nd 2026";
+    display: block;
+    margin-top: -0.9em;
+    margin-bottom: 1em;
+    color: var(--uhl-color);
+    font-size: 0.5em;
+  }
+
+  .read-list p {
+    padding: 0;
+    margin-bottom: 0.5em;
+    line-height: 1.5em;
+  }
+
+</style>

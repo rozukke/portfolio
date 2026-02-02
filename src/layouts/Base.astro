@@ -17,22 +17,20 @@ const { pageTitle, description, readingMode } = Astro.props;
   </head>
   <body>
     <AnimatedBackground
-      showPicture={!readingMode}
-      showStatic={!readingMode}
       animateStatic={!readingMode}
     />
     <div class="content">
       <nav class="animate">
         <a href="/">home</a>::
-        <a href="/work/">work</a>::
-        <a href="/projects/">projects</a>::
-        <a href="/blog/">blog</a>
+        <a href="/blog/">blog</a>::
+        <a href="/now/">now</a>
       </nav>
       <main>
         <slot />
       </main>
       <footer>
         <span>Copyright &copy; {new Date().getFullYear()} Artemis Rosman</span>
+        <span>This version of the website was built on {new Date().toLocaleString('en-AU', {})}</span>
       </footer>
     </div>
   </body>
@@ -46,6 +44,7 @@ const { pageTitle, description, readingMode } = Astro.props;
     overflow-x: hidden;
     overflow-y: auto;
     width: 100%;
+    height: 100%;
   }
 
   nav {
@@ -75,9 +74,13 @@ const { pageTitle, description, readingMode } = Astro.props;
   }
 
   footer {
-    margin-top: 1em;
+    padding-top: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: auto;
     margin-bottom: 0.5em;
-    color: grey;
+    color: var(--uhl-color);
     font-size: 0.7rem;
   }
 </style>

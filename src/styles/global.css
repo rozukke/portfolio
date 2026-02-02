@@ -1,11 +1,12 @@
 :root {
-	--text-color: #ddd;
-	--uhl-color: #777;
-	--hero-color: #5c7;
-	--contrast-color: #ff3077;
-	--bg-color: #002;
-	--bg-color-read: #013;
-	--bg-color-transparent: #002d;
+	--text-color: #dddddd;
+	--uhl-color: #777777;
+	--hero-color: #2f8df9;
+	--contrast-color: #a52115;
+	--bg-color: #000022;
+	--bg-color-read: #001133;
+	--bg-color-transparent: #000022dd;
+	--bg-color-slight: #00002277;
 	--mono-font: "JetBrains Mono Variable";
 }
 
@@ -35,19 +36,22 @@ body {
 main {
 	width: 700px;
 	max-width: 100%;
-	padding: 1em 1em;
+	padding: 2em 4em 3em 3em;
+	background-color: var(--bg-color-slight);
 }
 
 code {
 	font-family: var(--mono-font), sans-serif;
 	font-size: 1rem;
-	
+
 	background-color: var(--bg-color);
 	padding: 0.2rem 0.4rem;
 	border-radius: 0.5rem;
 
 	box-shadow: 0.1rem 0.1rem 0.2rem #0000005b;
 	border: 1.5px solid #444f;
+	hyphens: none;
+	overflow-wrap: normal;
 }
 
 blockquote {
@@ -96,8 +100,6 @@ h3 {
 	font-family: var(--mono-font), monospace;
 	font-weight: 600;
 
-	margin-top: 1rem;
-	margin-bottom: 0.5rem;
 }
 
 h1 {
@@ -106,11 +108,19 @@ h1 {
 
 h2 {
 	font-size: 1.5rem;
+	margin-top: 2rem;
+}
+
+h3 {
+	margin-top: 2rem;
 }
 
 p {
 	margin-bottom: 1rem;
-	line-height: 2rem;
+	line-height: 1.75;
+	letter-spacing: 0.05rem;
+	hyphens: auto;
+	text-shadow: 0 0 1px darkgray;
 }
 
 .code {
