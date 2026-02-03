@@ -49,7 +49,7 @@ try {
     .slice(0, 3);
 } catch (e) {console.log(`failed getting goodreads: ${e}`)}
 
-const renderStars = (n) => "★".repeat(n);
+const renderStars = (n) => "★".repeat(n) + "☆".repeat(5 - n);
 ---
 
 <Base
