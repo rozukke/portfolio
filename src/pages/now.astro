@@ -5,13 +5,14 @@ import Link from "@components/Link.astro";
 import Parser from 'rss-parser';
 const GOODREADS_ID = '197032067';
 const CURRENTLY_READING_URL = `https://www.goodreads.com/review/list_rss/${GOODREADS_ID}?shelf=currently-reading`;
-const UPDATES_URL = `https://www.goodreads.com/user/updates_rss/${GOODREADS_ID}`;
+const RECENT_READS_URL = `https://www.goodreads.com/review/list_rss/${GOODREADS_ID}?shelf=read`;
 
 const parser = new Parser({
   customFields: {
     item: [
+      ['book_published', 'year'],
       ['author_name', 'author'],
-      ['book_published', 'year']
+      ['user_rating', 'rating']
     ],
   }
 });
@@ -20,33 +21,24 @@ let currentlyReading = null;
 let recentReads = null;
 
 try {
-  const [readingFeed, updatesFeed] = await Promise.all([
+  const [readingFeed, readFeed] = await Promise.all([
     parser.parseURL(CURRENTLY_READING_URL),
-    parser.parseURL(UPDATES_URL)
+    parser.parseURL(RECENT_READS_URL)
   ]);
 
+  // Helper to extract the first book link from content HTML
+  const getBookLink = (item) => {
+    const match = item.content.match(/href="([^"]+)"/);
+    const url = match ? match[1] : item.link;
+    return url.split('?')[0];
+  };
+
+  readingFeed?.items.forEach((item) => item.link = getBookLink(item));
+  readFeed?.items.forEach((item) => item.link = getBookLink(item));
+
   currentlyReading = readingFeed?.items;
-  recentReads = updatesFeed?.items
-    .filter(item => item.contentSnippet.includes('gave') && item.contentSnippet.includes('star'))
-    .map(item => {
-      const ratingMatch = item.contentSnippet.match(/gave (\d) star/);
-      const titleCleaned = item.title
-        .split('added \'')[1]
-        ?.split('\'')[0]
-        ?.replace(/\(Hardcover\)|\(Paperback\)|\(Kindle Edition\)/g, '')
-        .trim();
+  recentReads = readFeed?.items.slice(0, 3);
 
-      const authorMatch = item.contentSnippet.match(/by\s*\n\s*(.*)/);
-      const author = authorMatch ? authorMatch[1].trim() : "Unknown Author";
-
-      return {
-        title: titleCleaned || "Unknown Title",
-        link: item.link,
-        author: author,
-        rating: ratingMatch ? parseInt(ratingMatch[1]) : null,
-      };
-    })
-    .slice(0, 3);
 } catch (e) {console.log(`failed getting goodreads: ${e}`)}
 
 const renderStars = (n) => "★".repeat(n) + "☆".repeat(5 - n);
@@ -54,7 +46,7 @@ const renderStars = (n) => "★".repeat(n) + "☆".repeat(5 - n);
 
 <Base
   pageTitle="now"
-  description="What I'm up to"
+  description="A page about what I'm currently up to in life."
 >
   <article class="animate">
       <h1 id="title-now">now::</h1>
@@ -70,23 +62,26 @@ const renderStars = (n) => "★".repeat(n) + "☆".repeat(5 - n);
 
       <div class="read-list">
       <h2>reading::</h2>
+      <ul>
       {currentlyReading ?
           (currentlyReading.length != 0 ?
             currentlyReading?.map((book) => (
-            <p><Link href={book.link}><strong>{book.title}</strong></Link> by {book.author} ({book.year})</p>))
+            <li><Link href={book.link}><strong>{book.title.split(':')[0]}</strong></Link> by {book.author} ({book.year})</li>))
             : <p>Nothing much, looks like.</p>)
       : <p>Looks like the Goodreads RSS API broke. Oops!</p>
       }
-      <h2>previously read::</h2>
+      </ul>
+      <h2>recently read::</h2>
+      <ul>
       {recentReads ?
           (recentReads.length != 0 ?
             recentReads?.map((book) => (
-            <p><Link href={book.link}><strong>{book.title}</strong></Link> by {book.author} 「{renderStars(book.rating)}」</p>))
+            <li><Link href={book.link}><strong>{book.title.split(':')[0]}</strong></Link> by {book.author} ({book.year}) 「{renderStars(book.rating)}」</li>))
             : <p>Nothing much, looks like.</p>)
       : <p>Looks like the Goodreads RSS API broke. Oops!</p>
       }
+      </ul>
       </div>
-
   </article>
 </Base>
 
@@ -126,10 +121,22 @@ const renderStars = (n) => "★".repeat(n) + "☆".repeat(5 - n);
     font-size: 0.5em;
   }
 
-  .read-list p {
-    padding: 0;
-    margin-bottom: 0.5em;
+  .read-list ul {
+    padding-left: 0.5em;
+  }
+  .read-list li {
+    position: relative;
+    list-style-type: none;
+    margin-bottom: 0.7em;
     line-height: 1.5em;
+  }
+
+  .read-list li::before {
+      content: "~>";
+      position: absolute;
+      left: -1.5em;
+      font-family: var(--mono-font);
+      color: var(--hero-color);
   }
 
 </style>
