@@ -16,9 +16,7 @@ const { pageTitle, description, readingMode } = Astro.props;
     <Head title={pageTitle} description={description} />
   </head>
   <body>
-    <AnimatedBackground
-      animateStatic={!readingMode}
-    />
+    <AnimatedBackground animateStatic={!readingMode} />
     <div class="content">
       <nav class="animate">
         <a href="/">home</a>::
@@ -29,8 +27,13 @@ const { pageTitle, description, readingMode } = Astro.props;
         <slot />
       </main>
       <footer>
+        <a href="/" class="b88x31">
+          <img src="/rozukke88x31.gif" alt="88x31 button" />
+        </a>
         <span>Copyright &copy; {new Date().getFullYear()} Artemis Rosman</span>
-        <span>This version of the website was built on {new Date().toLocaleString('en-AU', {})}</span>
+        <span
+          >This version of the website was built on {new Date().toLocaleString("en-AU", {})}</span
+        >
       </footer>
     </div>
   </body>
@@ -82,5 +85,10 @@ const { pageTitle, description, readingMode } = Astro.props;
     margin-bottom: 0.5em;
     color: var(--uhl-color);
     font-size: 0.7rem;
+  }
+
+  .b88x31 img {
+    margin: 0.5em;
+    outline: 1px solid ivory;
   }
 </style>
