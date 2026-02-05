@@ -37,7 +37,7 @@ try {
   readFeed?.items.forEach((item) => item.link = getBookLink(item));
 
   currentlyReading = readingFeed?.items;
-  recentReads = readFeed?.items.slice(0, 3);
+  recentReads = readFeed?.items.slice(0, 5);
 
 } catch (e) {console.log(`failed getting goodreads: ${e}`)}
 
