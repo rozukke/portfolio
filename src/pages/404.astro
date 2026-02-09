@@ -1,0 +1,35 @@
+---
+import Base from "@layouts/Base.astro";
+import Link from "@components/Link.astro";
+---
+
+<Base pageTitle="404" description="Could not find">
+  <h1 class="animate" id="title-name">error::404</h1>
+  <p>
+    Blame Google's indexing, or maybe your own clumsy fingers. You're lost, <Link href="/"
+      >go back home.</Link
+    >
+  </p>
+</Base>
+
+<style>
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0px;
+  }
+
+  li {
+    list-style: none;
+    padding-right: 0.3em;
+  }
+
+  #title-name::after {
+    content: "this page doesn't exist!";
+    display: block;
+    margin-top: -0.9em;
+    margin-bottom: 1em;
+    color: var(--contrast-color);
+    font-size: 0.5em;
+  }
+</style>
