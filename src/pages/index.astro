@@ -3,7 +3,6 @@ import { getCollection } from "astro:content";
 import Base from "@layouts/Base.astro";
 import Post from "@components/Post.astro";
 import Link from "@components/Link.astro";
-import { SITE, SOCIAL } from "@const";
 
 const blogPosts = (await getCollection("blog"))
   .filter((post) => !post.data.draft)
@@ -16,38 +15,27 @@ const blogPosts = (await getCollection("blog"))
     I'm Artemis, a software engineer based in <i>Melbourne, Australia</i>.
   </p>
   <p class="animate">
-    I currently develop computer vision software primarily in <i>C++</i>. Some may know me from
-    my past teaching work at <Link href="https://www.rmit.edu.au/">RMIT University</Link>, where I
-    assisted several computer architecture courses. I finally graduate this year
-    (good riddance).
+    I currently work at <Link href="https://shield.ai">Shield AI</Link>, where I develop computer
+    vision software primarily in <i>C++</i>. Some may know me from my past teaching work at
+    <Link href="https://www.rmit.edu.au/">RMIT University</Link>, where I assisted several computer
+    architecture courses. I will finally graduate after this semester (good riddance).
   </p>
   <p class="animate">
-    I specialise in systems development. In my limited free time I prefer to
-    write code in bearable languages (like <i>Rust</i> and <i>Zig</i>). You can see what I'm currently
-    up to on my <Link href="/now/">now</Link> page.
+    I specialise in systems development. In my limited free time I prefer to write code in bearable
+    languages (like <i>Rust</i> and <i>Zig</i>). You can see what I'm currently up to on my <Link
+      href="/now/">now</Link
+    > page.
   </p>
   <h2 class="animate">contact::</h2>
   <p class="animate">
-    Please email me if you'd like to chat or to request a copy of my CV. Any information
-    related to past experience is also available on my GitHub &amp; LinkedIn.
+    Please email me at <Link href={`mailto:contact@rozukke.dev`} hero={false}>
+      contact@rozukke.dev
+    </Link>
+    for my CV or if you'd just like to chat. Any information related to past experience is also available
+    on my <Link href="https://github.com/rozukke">GitHub</Link> &amp; <Link
+      href="https://www.linkedin.com/in/artemis-rosman/">LinkedIn</Link
+    >.
   </p>
-  <ul class="animate">
-    {
-      SOCIAL.map((INFO) => (
-        <li>
-          <Link href={INFO.HREF} hero={false}>
-            {INFO.NAME}
-          </Link>
-          {"::"}
-        </li>
-      ))
-    }
-    <li>
-      <Link href={`mailto:${SITE.EMAIL}`} hero={false}>
-        {SITE.EMAIL}
-      </Link>
-    </li>
-  </ul>
   <h2 class="animate">posts::</h2>
   {
     blogPosts.map((post) => (
@@ -62,17 +50,6 @@ const blogPosts = (await getCollection("blog"))
 </Base>
 
 <style>
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    padding-left: 0px;
-  }
-
-  li {
-    list-style: none;
-    padding-right: 0.3em;
-  }
-
   #title-name::after {
     content: "artemis rosman";
     display: block;
