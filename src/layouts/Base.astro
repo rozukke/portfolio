@@ -19,9 +19,15 @@ const { pageTitle, description, readingMode } = Astro.props;
     <AnimatedBackground animateStatic={!readingMode} />
     <div class="content">
       <nav class="animate">
-        <a href="/">home</a>::
-        <a href="/blog/">blog</a>::
-        <a href="/now/">now</a>
+        <div class="nav-left">
+          <a href="/">home</a>::
+          <a href="/blog/">blog</a>::
+          <a href="/now/">now</a>
+        </div>
+        <div class="nav-right">
+          <a href="https://ring.twhlynch.me/left">←</a>
+          <a href="https://ring.twhlynch.me/right">→</a>
+        </div>
       </nav>
       <main>
         <slot />
@@ -62,7 +68,25 @@ const { pageTitle, description, readingMode } = Astro.props;
     font-weight: 400;
   }
 
-  nav > a {
+  .nav-left {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .nav-right {
+    margin-left: auto;
+  }
+
+  .nav-right > a {
+    background-color: transparent;
+    color: var(--hero-color);
+
+    outline: none;
+    border: none;
+    text-decoration: none;
+  }
+
+  .nav-left > a {
     background-color: transparent;
     color: var(--uhl-color);
 
@@ -71,7 +95,7 @@ const { pageTitle, description, readingMode } = Astro.props;
     text-decoration: none;
   }
 
-  nav > a:hover {
+  .nav-left > a:hover {
     color: var(--hero-color);
     opacity: 100%;
   }
