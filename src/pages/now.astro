@@ -1,63 +1,12 @@
 ---
 import Base from "@layouts/Base.astro";
 import Link from "@components/Link.astro";
-
-import Parser from "rss-parser";
-
-const GOODREADS_ID = "197032067";
-const CURRENTLY_READING_URL = `https://www.goodreads.com/review/list_rss/${GOODREADS_ID}?shelf=currently-reading`;
-const RECENT_READS_URL = `https://www.goodreads.com/review/list_rss/${GOODREADS_ID}?shelf=read`;
-
-const parser = new Parser({
-  customFields: {
-    item: [
-      ["book_published", "year"],
-      ["author_name", "author"],
-      ["user_rating", "rating"],
-    ],
-  },
-});
-
-let currentlyReading = null;
-let recentReads = null;
-
-try {
-  const [readingFeed, readFeed] = await Promise.all([
-    parser.parseURL(CURRENTLY_READING_URL),
-    parser.parseURL(RECENT_READS_URL),
-  ]);
-
-  // Helper to extract the first book link from content HTML
-  const getBookLink = (item: any) => {
-    const match = item.content.match(/href="([^"]+)"/);
-    const url = match ? match[1] : item.link;
-    return url.split("?")[0];
-  };
-  // 4 -> 「★★★★☆」
-  const renderStars = (n: number) => {
-    return `「${"★".repeat(n)}${"☆".repeat(5 - n)}」`;
-  };
-  const stringifyItem = (item: any) => {
-    return {
-      title: item.title.split(":")[0],
-      year: item.year ? `(${item.year})` : "(N/A)",
-      author: item.author,
-      rating: renderStars(parseInt(item.rating) ?? 0),
-      link: getBookLink(item),
-    };
-  };
-
-  currentlyReading = readingFeed?.items.map(stringifyItem);
-  recentReads = readFeed?.items.map(stringifyItem).slice(0, 4);
-} catch (e) {
-  console.log(`failed getting goodreads: ${e}`);
-}
 ---
 
 <Base pageTitle="now" description="A page about what I'm currently up to in life.">
   <article class="animate">
     <h1 id="title-now">now::</h1>
-    <p>Attempt #35 to get into fitness.</p>
+    <p>Psychologising at work, psychologising at home.</p>
 
     <p>
       Time elapsed since I've last used a content recommendation algorithm: <span id="algo-timer"
@@ -70,52 +19,12 @@ try {
 
     <h2>programming::</h2>
     <p>
-      Desperate leetcode to keep hand-coding skills.
+      Thinking of something to vibecode that might make me rich enough to own a riverside estate.
     </p>
 
     <div class="read-list">
       <h2>reading::</h2>
-      <ul>
-        {
-          currentlyReading ? (
-            currentlyReading.length != 0 ? (
-              currentlyReading?.map((book) => (
-                <li>
-                  <Link href={book.link}>
-                    <strong>{book.title}</strong>
-                  </Link>{" "}
-                  by {book.author} {book.year}
-                </li>
-              ))
-            ) : (
-              <p>Nothing much, looks like.</p>
-            )
-          ) : (
-            <p>Looks like the Goodreads RSS API broke. Oops!</p>
-          )
-        }
-      </ul>
-      <h2>recently read::</h2>
-      <ul>
-        {
-          recentReads ? (
-            recentReads.length != 0 ? (
-              recentReads?.map((book) => (
-                <li>
-                  <Link href={book.link}>
-                    <strong>{book.title}</strong>
-                  </Link>{" "}
-                  by {book.author} {book.year} {book.rating}
-                </li>
-              ))
-            ) : (
-              <p>Nothing much, looks like.</p>
-            )
-          ) : (
-            <p>Looks like the Goodreads RSS API broke. Oops!</p>
-          )
-        }
-      </ul>
+      <p>Goodreads has deprecated any and all API, so what I'm reading is a secret :^)</p>
     </div>
   </article>
 </Base>
